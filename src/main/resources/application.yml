@@ -10,3 +10,8 @@ spring:
     cache: false
 mybatis:
   type-aliases-package: com.xiao.amovie.entity
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql

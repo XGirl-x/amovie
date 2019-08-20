@@ -35,17 +35,19 @@ public class UserController {
 
     @PostMapping("/login")
     @ResponseBody
-    public ResultVO login(@RequestParam("email") String email, @RequestParam("password") String password, @RequestParam(value = "loginStatus",defaultValue = "off") String loginStatus, HttpSession session){
+    public ResultVO login(@RequestParam("email") String email, @RequestParam("password") String password, @RequestParam(value = "loginStatus",defaultValue = "off") String loginStatus, HttpSession session,HttpServletResponse response){
         boolean b = userService.login(email, password);
+        User user = userService.findByEmail(email);
         if (b){
+            session.setAttribute("user",user);
             if (loginStatus.equals("on")){
-                User user = userService.findByEmail(email);
-                session.setAttribute("user",user);
+                response.addCookie(new Cookie("userId",user.getId().toString()));
+                response.addCookie(new Cookie("userName",user.getNickname()));
             }
             return ResultVOUtil.success();
         }
 
-        return ResultVOUtil.error("登录失败");
+        return ResultVOUtil.error("用户名或密码错误");
     }
 
     @GetMapping("/logout")
@@ -53,4 +55,9 @@ public class UserController {
         session.invalidate();
         return "redirect:/";
     }
+
+    /*@PostMapping("/book")
+    public ResultVO book(){
+        return ResultVOUtil.success();
+    }*/
 }

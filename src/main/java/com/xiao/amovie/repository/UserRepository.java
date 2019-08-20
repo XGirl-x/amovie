@@ -2,8 +2,10 @@ package com.xiao.amovie.repository;
 
 
 import com.xiao.amovie.entity.User;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -14,4 +16,13 @@ public interface UserRepository {
 
     @Select("select * from user where email = #{email}")
     User findByEmail(String email);
+
+    @Delete("delete from user where id=#{id}")
+    int delete(Integer id);
+
+    @Update("update user set nickname=#{nickname},email=#{email},password=#{password},phone=#{phone},gender=#{gender},role=#{role} where id=#{id}")
+    int update(User user);
+
+    @Select("select * from user where id=#{id}")
+    User findById(Integer id);
 }
