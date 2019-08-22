@@ -15,20 +15,12 @@ public interface ReviewRepository {
     @Delete("delete from review where id=#{id}")
     int delete(Integer id);
 
-    @Update("update review set content=#{content},movie_id=#{movieId},user_id=#{userId}")
+    @Update("update review set content=#{content},movie_id=#{movieId},user_id=#{userId} where id=#{id}")
     int update(Review review);
 
     @Select("select * from review where id=#{id}")
-    @Results({
-            @Result(property = "movieId",column = "movie_id"),
-            @Result(property = "userId",column = "user_id")
-    })
     Review findById(Integer id);
 
     @Select("select * from review")
-    @Results({
-            @Result(property = "movieId",column = "movie_id"),
-            @Result(property = "userId",column = "user_id")
-    })
     List<Review> getAll();
 }

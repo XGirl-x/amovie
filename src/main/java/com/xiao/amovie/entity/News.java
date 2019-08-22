@@ -20,4 +20,8 @@ public class News {
     private String content;
 
     private Date createTime;
+
+    public News(String content) {
+        this.content = content;
+    }
 }

@@ -11,7 +11,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Category {
 
-    private String id;
+    private Integer id;
 
     private String name;
+
+    public Category(String name) {
+        this.name = name;
+    }
 }

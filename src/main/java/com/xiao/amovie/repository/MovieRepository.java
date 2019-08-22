@@ -15,28 +15,15 @@ public interface MovieRepository {
     @Delete("delete from movie where id=#{id}")
     int delete(Integer id);
 
-    @Update("update movie set name=#{name},duration=#{duration},directors=#{directors},actors=#{actors},release_date=#{releaseDate},category_id=#{categoryId},status=#{status},plot=#{plot},poster=#{poster},country=#{country} where id=#{id}")
     int update(Movie movie);
 
     @Select("select * from movie where id=#{id}")
-    @Results({
-            @Result(property = "releaseDate",column = "release_date"),
-            @Result(property = "categoryId",column = "category_id")
-    })
     Movie findById(Integer id);
 
     @Select("select * from movie")
-    @Results({
-            @Result(property = "releaseDate",column = "release_date"),
-            @Result(property = "categoryId",column = "category_id")
-    })
     List<Movie> getAll();
 
     @Select("select * from movie where status=#{status}")
-    @Results({
-            @Result(property = "releaseDate",column = "release_date"),
-            @Result(property = "categoryId",column = "category_id")
-    })
     List<Movie> findByStatus(Integer status);
 
     /**
@@ -45,5 +32,10 @@ public interface MovieRepository {
     @Select("select * from movie where name like #{name}")
     List<Movie> findByName(String name);
 
+    @Select("select * from movie where category_id like #{categoryId}")
+    List<Movie> findByCategoryId(String categoryId);
+
+    @Select("select * from movie where name=#{name}")
+    List<Movie> findMovieByName(String name);
 
 }

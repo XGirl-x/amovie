@@ -1,4 +1,4 @@
-package com.xiao.amovie.entity;
+package com.xiao.amovie.VO;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,13 +8,13 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
-@Entity
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Scene {
+public class SceneVO {
 
     private Integer id;
 
@@ -26,9 +26,10 @@ public class Scene {
 
     private Integer seatNum = 166;
 
-    /*场次时间*/
     private String showtime;
 
     /*已预订的座位*/
     private String bookedSeat;
+
+    private List<String> bookedSeatList;
 }

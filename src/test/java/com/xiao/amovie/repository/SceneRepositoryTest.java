@@ -27,7 +27,7 @@ public class SceneRepositoryTest {
                 .movieId(2)
                 .movieName("速度与激情2")
                 .price(new BigDecimal(35.4))
-                .showtime(new Date())
+                .showtime("")
                 .bookedSeat("[G2,G3]")
                 .build());
         Assert.assertEquals(1,i);
@@ -51,5 +51,11 @@ public class SceneRepositoryTest {
     public void getAll() {
         List<Scene> sceneList = repository.getAll();
         Assert.assertNotNull(sceneList);
+    }
+
+    @Test
+    public void findByMovieName() {
+        List<Scene> sceneList = repository.findByMovieName("速度与激情");
+        System.out.println(sceneList);
     }
 }

@@ -54,6 +54,16 @@ public class RouterController {
         return "news-list";
     }
 
+    @RequestMapping("/watchlist.html")
+    public String watchlist() {
+        return "watchlist";
+    }
+
+    @RequestMapping("/ticket.html")
+    public String ticket() {
+        return "ticket";
+    }
+
 
 
 

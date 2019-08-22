@@ -15,18 +15,12 @@ public interface NewsRepository {
     @Delete("delete from news where id=#{id}")
     int delete(Integer id);
 
-    @Update("update news set content=#{content}")
+    @Update("update news set content=#{content} where id=#{id}")
     int update(News news);
 
     @Select("select * from news where id=#{id}")
-    @Results({
-            @Result(property = "createTime",column = "create_time")
-    })
     News findById(Integer id);
 
     @Select("select * from news")
-    @Results({
-            @Result(property = "createTime",column = "create_time")
-    })
     List<News> getAll();
 }

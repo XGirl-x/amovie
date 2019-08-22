@@ -56,8 +56,4 @@ public class UserController {
         return "redirect:/";
     }
 
-    /*@PostMapping("/book")
-    public ResultVO book(){
-        return ResultVOUtil.success();
-    }*/
 }

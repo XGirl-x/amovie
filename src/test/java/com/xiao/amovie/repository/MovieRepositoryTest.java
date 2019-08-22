@@ -96,4 +96,11 @@ public class MovieRepositoryTest {
         System.out.println(movieList);
         Assert.assertNotNull(movieList);
     }
+
+    @Test
+    public void findByCategoryId() {
+        List<Movie> movieList = repository.findByCategoryId("%1%");
+        System.out.println(movieList);
+        Assert.assertNotNull(movieList);
+    }
 }

@@ -16,22 +16,16 @@ public interface SceneRepository {
     @Delete("delete from `scene` where id=#{id}")
     int delete(Integer id);
 
-    @Update("update `scene` set movie_id=#{movieId},movie_name=#{movieName},price=#{price},showtime=#{showtime},booked_seat=#{bookedSeat}")
     int update(Scene scene);
 
     @Select("select * from `scene` where id=#{id}")
-    @Results({
-            @Result(property = "movieId",column = "movie_id"),
-            @Result(property = "movieName",column = "movie_name"),
-            @Result(property = "bookedSeat",column = "booked_seat")
-    })
     Scene findById(Integer id);
 
     @Select("select * from scene")
-    @Results({
-            @Result(property = "movieId",column = "movie_id"),
-            @Result(property = "movieName",column = "movie_name"),
-            @Result(property = "bookedSeat",column = "booked_seat")
-    })
     List<Scene> getAll();
+
+    @Select("select * from scene where movie_name=#{movieName}")
+    List<Scene> findByMovieName(String movieName);
+
+    
 }
