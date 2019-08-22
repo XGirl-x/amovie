@@ -1,28 +1,22 @@
 package com.xiao.amovie.utils;
 
-import com.xiao.amovie.VO.ReturnVO;
+import com.xiao.amovie.from.ReturnForm;
 
+/**
+ * @author xiao
+ */
 public class ReturnVOUtil {
 
-    public static ReturnVO success() {
-        ReturnVO returnVO = new ReturnVO();
-        returnVO.setCode(200);
-        returnVO.setMsg("成功");
-        return returnVO;
+    public static ReturnForm success() {
+        ReturnForm returnForm = new ReturnForm();
+        returnForm.setMsg("成功");
+        return returnForm;
     }
 
-    public static  ReturnVO notFound() {
-        ReturnVO returnVO = new ReturnVO();
-        returnVO.setCode(404);
-        returnVO.setMsg("资源未找到");
-        return returnVO;
-    }
-
-    public static ReturnVO createFail(String msg) {
-        ReturnVO returnVO = new ReturnVO();
-        returnVO.setCode(404);
-        returnVO.setMsg(msg);
-        return returnVO;
+    public static ReturnForm error(String msg) {
+        ReturnForm returnForm = new ReturnForm();
+        returnForm.setMsg(msg);
+        return returnForm;
     }
 
 }

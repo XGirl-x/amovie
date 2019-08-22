@@ -7,6 +7,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * @author xiao
+ */
 @Repository
 public interface OrderRepository {
 
@@ -16,7 +19,6 @@ public interface OrderRepository {
     @Delete("delete from `order` where order_id=#{orderId}")
     int delete(Integer orderId);
 
-    @Update("update `order` set status=#{status},user_id=#{userId},scene_id=#{sceneId},ticket_num=#{ticketNum},total_price=#{totalPrice},booked_seat=#{bookedSeat} where order_id=#{orderId}")
     int update(Order order);
 
     @Select("select * from `order` where order_id=#{orderId}")

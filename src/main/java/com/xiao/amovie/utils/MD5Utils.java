@@ -6,6 +6,9 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * @author xiao
+ */
 public class MD5Utils {
 
     //写一个md5加密的方法

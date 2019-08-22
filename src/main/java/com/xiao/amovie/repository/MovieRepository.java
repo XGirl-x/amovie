@@ -9,7 +9,8 @@ import java.util.List;
 @Repository
 public interface MovieRepository {
 
-    @Insert("insert into movie(name,duration,directors,actors,release_date,category_id,status,plot,poster,country) values(#{name},#{duration},#{directors},#{actors},#{releaseDate},#{categoryId},#{status},#{plot},#{poster},#{country})")
+    @Insert("insert into movie(name,duration,directors,actors,release_date,status,plot,poster,country) values(#{name},#{duration},#{directors},#{actors},#{releaseDate},#{status},#{plot},#{poster},#{country})")
+    @Options(useGeneratedKeys = true,keyColumn = "id",keyProperty = "id")
     int insert(Movie movie);
 
     @Delete("delete from movie where id=#{id}")
@@ -17,25 +18,41 @@ public interface MovieRepository {
 
     int update(Movie movie);
 
-    @Select("select * from movie where id=#{id}")
+
     Movie findById(Integer id);
 
-    @Select("select * from movie")
+
     List<Movie> getAll();
 
-    @Select("select * from movie where status=#{status}")
+
     List<Movie> findByStatus(Integer status);
 
     /**
      * 通过模糊查询
      */
-    @Select("select * from movie where name like #{name}")
     List<Movie> findByName(String name);
 
-    @Select("select * from movie where category_id like #{categoryId}")
-    List<Movie> findByCategoryId(String categoryId);
+    /**
+     * 通过导演查询
+     * @param directors
+     * @return
+     */
+    List<Movie> findByDirectors(String directors);
 
-    @Select("select * from movie where name=#{name}")
-    List<Movie> findMovieByName(String name);
+    /**
+     * 通过演员查询
+     * @param directors
+     * @return
+     */
+    List<Movie> findByActors(String directors);
+
+    /**
+     * 通过国家查询
+     * @param country
+     * @return
+     */
+    List<Movie> findByCountry(String country);
+
+    List<Movie> findByCategoryId(Integer categoryId);
 
 }

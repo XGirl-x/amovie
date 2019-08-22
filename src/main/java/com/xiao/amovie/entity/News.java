@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
 import java.util.Date;
 
+/**
+ * @author xiao
+ */
 @Entity
 @Data
 @Builder

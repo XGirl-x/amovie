@@ -2,6 +2,10 @@ package com.xiao.amovie.enums;
 
 import lombok.Getter;
 
+/**
+ * @author xiao
+ */
+
 @Getter
 public enum Gender {
     FEMALE(0,"女"),

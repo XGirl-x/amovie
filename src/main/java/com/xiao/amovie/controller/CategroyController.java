@@ -4,6 +4,8 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.xiao.amovie.entity.Category;
+import com.xiao.amovie.exception.CommonException;
+import com.xiao.amovie.exception.NotFoundException;
 import com.xiao.amovie.repository.CategoryRepository;
 import com.xiao.amovie.service.CategoryService;
 import com.xiao.amovie.utils.ReturnVOUtil;
@@ -13,6 +15,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * @author xiao
+ */
 @Controller
 @RequestMapping("/categories")
 public class CategroyController {
@@ -34,10 +39,10 @@ public class CategroyController {
     @GetMapping("/{id}")
     public ResponseEntity getById(@PathVariable("id") Integer id) {
         Category category = repository.findById(id);
-        if (category!=null){
-            return new ResponseEntity(category,HttpStatus.OK);
+        if (category!=null) {
+            return new ResponseEntity(category, HttpStatus.OK);
         }
-        return new ResponseEntity(ReturnVOUtil.notFound(),HttpStatus.NOT_FOUND);
+        throw  new NotFoundException("资源未找到");
     }
 
     @PostMapping
@@ -46,7 +51,7 @@ public class CategroyController {
         if (i>0){
             return new ResponseEntity(ReturnVOUtil.success(),HttpStatus.OK);
         }
-        return new ResponseEntity(ReturnVOUtil.createFail("创建失败"),HttpStatus.BAD_REQUEST);
+        throw new CommonException("创建失败");
     }
 
     @PutMapping("/{id}")
@@ -54,27 +59,27 @@ public class CategroyController {
                                  @RequestParam(value = "name",required = true) String name) {
         Category category = repository.findById(id);
         if (category == null){
-            return new ResponseEntity(ReturnVOUtil.notFound(),HttpStatus.NOT_FOUND);
+            throw new NotFoundException("资源未找到");
         }
         category.setName(name);
         int i = repository.update(category);
         if (i>0){
             return new ResponseEntity(ReturnVOUtil.success(),HttpStatus.OK);
         }
-        return new ResponseEntity(ReturnVOUtil.createFail("修改失败"),HttpStatus.BAD_REQUEST);
+        throw new CommonException("修改失败");
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable("id") Integer id) {
         Category category = repository.findById(id);
         if (category == null){
-            return new ResponseEntity(ReturnVOUtil.notFound(),HttpStatus.NOT_FOUND);
+            throw new NotFoundException("资源未找到");
         }
         int i = repository.delete(id);
         if (i>0){
             return new ResponseEntity(ReturnVOUtil.success(),HttpStatus.OK);
         }
-        return new ResponseEntity(ReturnVOUtil.createFail("删除失败"),HttpStatus.BAD_REQUEST);
+        throw new CommonException("删除失败");
     }
 
 

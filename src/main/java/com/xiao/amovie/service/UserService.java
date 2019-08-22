@@ -2,6 +2,9 @@ package com.xiao.amovie.service;
 
 import com.xiao.amovie.entity.User;
 
+/**
+ * @author xiao
+ */
 public interface UserService {
 
     boolean isExistUser(String email);

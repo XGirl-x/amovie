@@ -8,6 +8,9 @@ import com.xiao.amovie.utils.MD5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author xiao
+ */
 @Service
 public class UserServiceImpl implements UserService {
 

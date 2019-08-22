@@ -4,6 +4,7 @@ import lombok.Getter;
 
 /**
  * 上映状态
+ * @author xiao
  */
 @Getter
 public enum Status {

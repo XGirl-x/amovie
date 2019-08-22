@@ -38,7 +38,7 @@ public class OrderRepositoryTest {
     @Test
     public void update() {
         Order order = repository.findById(1);
-        order.setSceneId(2);
+        order.setSceneId(1);
         int i = repository.update(order);
         Assert.assertEquals(1,i);
     }

@@ -9,6 +9,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * @author xiao
+ */
 @Repository
 public interface CategoryRepository {
 
@@ -26,4 +29,13 @@ public interface CategoryRepository {
 
     @Select("select * from category")
     List<Category> getAll();
+
+    @Insert("insert into movie_category(category_id,movie_id) values(#{categoryId},#{movieId})")
+    int insertCategories(Integer categoryId,Integer movieId);
+
+    @Delete("delete from movie_category where movie_Id=#{movieId}")
+    int deleteCategories(Integer movieId);
+
+    @Update("update movie_category set category_id = #{categoryId} where movie_id = #{movieId}")
+    int updateCategories(Integer categoryId, Integer movieId);
 }

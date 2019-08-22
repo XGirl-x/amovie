@@ -1,4 +1,4 @@
-package com.xiao.amovie.VO;
+package com.xiao.amovie.from;
 
 import com.xiao.amovie.entity.Category;
 import lombok.AllArgsConstructor;
@@ -6,17 +6,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
+/**
+ * @author xiao
+ */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MovieVO {
+public class MovieForm {
 
     private Integer id;
 
@@ -35,9 +35,6 @@ public class MovieVO {
     /*上映日期*/
     private Date releaseDate;
 
-    /*类别id*/
-    private String categoryId;
-
     /**
      * 上映状态
      * {@link com.xiao.amovie.enums.Status}
@@ -53,16 +50,15 @@ public class MovieVO {
     /*国家*/
     private String country;
 
-    private List<Category> list;
+    private Integer[] categoryIds;
 
-    public MovieVO(String name, String duration, String directors, String actors, Date releaseDate, String categoryId, Integer status, String plot, String poster, String country) {
+
+    public MovieForm(String name, String duration, String directors, String actors, Date releaseDate, Integer status, String plot, String poster, String country) {
         this.name = name;
         this.duration = duration;
         this.directors = directors;
         this.actors = actors;
         this.releaseDate = releaseDate;
-            //List<String> categoryIds = Arrays.stream(categoryId).map(e->new String(e)).collect(Collectors.toList());
-        this.categoryId = categoryId;
         this.status = status;
         this.plot = plot;
         this.poster = poster;

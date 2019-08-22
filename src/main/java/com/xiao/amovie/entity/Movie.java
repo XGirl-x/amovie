@@ -6,7 +6,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
+/**
+ * @author xiao
+ */
 @Data
 @Builder
 @NoArgsConstructor
@@ -30,9 +34,6 @@ public class Movie {
     /*上映日期*/
     private Date releaseDate;
 
-    /*类别id*/
-    private String categoryId;
-
     /**
      * 上映状态
      * {@link com.xiao.amovie.enums.Status}
@@ -48,13 +49,14 @@ public class Movie {
     /*国家*/
     private String country;
 
-    public Movie(String name, String duration, String directors, String actors, Date releaseDate, String categoryId, Integer status, String plot, String poster, String country) {
+    private List<Category> categoryList;
+
+    public Movie(String name, String duration, String directors, String actors, Date releaseDate, Integer status, String plot, String poster, String country) {
         this.name = name;
         this.duration = duration;
         this.directors = directors;
         this.actors = actors;
         this.releaseDate = releaseDate;
-        this.categoryId = categoryId;
         this.status = status;
         this.plot = plot;
         this.poster = poster;

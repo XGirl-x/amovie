@@ -14,9 +14,78 @@
             <if test="plot != null">plot = #{plot},</if>
             <if test="poster != null">poster = #{poster},</if>
             <if test="country != null">country = #{country},</if>
-            <if test="categoryId != null">category_id = #{categoryId},</if>
             <if test="status != null">status = #{status}</if>
         </set>
         WHERE id = #{id}
     </update>
+    <!--<resultMap id="findMoviesAndCategory" type="Movie">
+        <id property="id" column="id" javaType="int"></id>
+        <result property="name" column="name"></result>
+        <result property="duration" column="duration"></result>
+        <result property="directors" column="directors"></result>
+        <result property="actors" column="actors"></result>
+        <result property="releaseDate" column="release_date"></result>
+        <result property="status" column="status"></result>
+        <result property="plot" column="plot"></result>
+        <result property="poster" column="poster"></result>
+        <result property="country" column="country"></result>
+        <collection property="categoryList" ofType="Category">
+            <id property="id" column="category_id"></id>
+            <result property="name" column="category_name"></result>
+        </collection>
+    </resultMap>-->
+    
+    <resultMap id="findMovieAndCategory" type="Movie">
+        <id property="id" column="id" javaType="int"></id>
+        <result property="name" column="name"></result>
+        <result property="duration" column="duration"></result>
+        <result property="directors" column="directors"></result>
+        <result property="actors" column="actors"></result>
+        <result property="releaseDate" column="release_date"></result>
+        <result property="status" column="status"></result>
+        <result property="plot" column="plot"></result>
+        <result property="poster" column="poster"></result>
+        <result property="country" column="country"></result>
+        <collection property="categoryList" ofType="Category" column="id" select="selectCategoryofMovie">
+            <id property="id" column="category_id"></id>
+            <result property="name" column="category_name"></result>
+        </collection>
+    </resultMap>
+
+    <select id="findById" resultMap="findMovieAndCategory" parameterType="int">
+        select * from movie where id=#{id}
+    </select>
+
+    <select id="selectCategoryofMovie" parameterType="int" resultType="Category">
+        SELECT category.`*` FROM movie_category LEFT JOIN category ON category.id=movie_category.category_id WHERE movie_id=#{movieId}
+    </select>
+
+    <select id="getAll" resultMap="findMovieAndCategory" parameterType="int">
+        select * from movie
+    </select>
+
+    <select id="findByStatus" resultMap="findMovieAndCategory" parameterType="int">
+        select * from movie where status=#{status}
+    </select>
+
+    <select id="findByName" resultMap="findMovieAndCategory" parameterType="String">
+        select * from movie where name like concat('%', #{name} ,'%')
+    </select>
+
+    <select id="findByDirectors" resultMap="findMovieAndCategory" parameterType="String">
+        select * from movie where directors like concat('%', #{directors} ,'%')
+    </select>
+
+    <select id="findByActors" resultMap="findMovieAndCategory" parameterType="String">
+        select * from movie where actors like concat('%', #{actors} ,'%')
+    </select>
+
+    <select id="findByCountry" resultMap="findMovieAndCategory" parameterType="String">
+        select * from movie where country like concat('%', #{country} ,'%')
+    </select>
+
+    <select id="findByCategoryId" resultMap="findMovieAndCategory" parameterType="int">
+        select movie.* from movie,movie_category where movie_category.movie_id=movie.id and movie_category.category_id=#{categoryId}
+    </select>
+
 </mapper>

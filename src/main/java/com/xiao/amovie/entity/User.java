@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 
+/**
+ * @author xiao
+ */
 @Entity
 @Data
 @Builder
