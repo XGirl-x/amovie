@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class CommonExceptionHandler {
 
     @ExceptionHandler(value = CommonException.class)
-    public ResponseEntity getException(CommonException common){
+    public ResponseEntity getException(CommonException common) {
         return new ResponseEntity(ReturnVOUtil.error(common.getMessage()), HttpStatus.BAD_REQUEST);
     }
 

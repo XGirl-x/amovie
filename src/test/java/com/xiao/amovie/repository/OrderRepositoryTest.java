@@ -12,8 +12,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.math.BigDecimal;
 import java.util.List;
 
-import static org.junit.Assert.*;
-
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class OrderRepositoryTest {
@@ -32,7 +30,7 @@ public class OrderRepositoryTest {
                 .bookedSeat("[A1,A2]")
                 .build()
         );
-        Assert.assertEquals(1,i);
+        Assert.assertEquals(1, i);
     }
 
     @Test
@@ -40,7 +38,7 @@ public class OrderRepositoryTest {
         Order order = repository.findById(1);
         order.setSceneId(1);
         int i = repository.update(order);
-        Assert.assertEquals(1,i);
+        Assert.assertEquals(1, i);
     }
 
     @Test

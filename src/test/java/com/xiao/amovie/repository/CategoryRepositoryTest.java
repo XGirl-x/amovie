@@ -10,9 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class CategoryRepositoryTest {
@@ -31,7 +28,7 @@ public class CategoryRepositoryTest {
         int i = categoryRepository.insert(Category.builder()
                 .name("科幻")
                 .build());
-        Assert.assertEquals(1,i);
+        Assert.assertEquals(1, i);
     }
 
     @Test
@@ -39,7 +36,7 @@ public class CategoryRepositoryTest {
         Category category = categoryRepository.findById(2);
         category.setName("科幻");
         int i = categoryRepository.update(category);
-        Assert.assertEquals(1,i);
+        Assert.assertEquals(1, i);
     }
 
     @Test

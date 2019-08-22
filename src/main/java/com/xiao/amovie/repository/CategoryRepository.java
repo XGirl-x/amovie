@@ -31,7 +31,7 @@ public interface CategoryRepository {
     List<Category> getAll();
 
     @Insert("insert into movie_category(category_id,movie_id) values(#{categoryId},#{movieId})")
-    int insertCategories(Integer categoryId,Integer movieId);
+    int insertCategories(Integer categoryId, Integer movieId);
 
     @Delete("delete from movie_category where movie_Id=#{movieId}")
     int deleteCategories(Integer movieId);

@@ -41,8 +41,8 @@ public class MovieController {
     private MovieService movieService;
 
     @GetMapping
-    public ResponseEntity getAll(@RequestParam(value = "page",required = false,defaultValue = "1") Integer page,
-                                 @RequestParam(value = "size",required = false,defaultValue = "20") Integer size) {
+    public ResponseEntity getAll(@RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+                                 @RequestParam(value = "size", required = false, defaultValue = "20") Integer size) {
         Page<Movie> movieList = PageHelper.startPage(page, size).doSelectPage(() -> repository.getAll());
         return new ResponseEntity(movieList.toPageInfo(), HttpStatus.OK);
     }
@@ -50,47 +50,47 @@ public class MovieController {
     @GetMapping("/{id}")
     public ResponseEntity getById(@PathVariable("id") Integer id) {
         Movie movie = repository.findById(id);
-        if (movie!=null){
-            return new ResponseEntity(movie,HttpStatus.OK);
+        if (movie != null) {
+            return new ResponseEntity(movie, HttpStatus.OK);
         }
-            throw new NotFoundException("资源未找到");
+        throw new NotFoundException("资源未找到");
     }
 
     @PostMapping
     public ResponseEntity insert(@RequestBody MovieForm movieForm) {
         Movie movie = new Movie();
-        BeanUtils.copyProperties(movieForm,movie);
+        BeanUtils.copyProperties(movieForm, movie);
         Integer[] categoryIds = movieForm.getCategoryIds();
         movieService.insert(movie, categoryIds);
-        return new ResponseEntity(ReturnVOUtil.success(),HttpStatus.OK);
+        return new ResponseEntity(ReturnVOUtil.success(), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity update(@PathVariable("id") Integer id,
                                  @RequestBody MovieForm movieForm) {
         Movie movie = repository.findById(id);
-        if (movie == null){
+        if (movie == null) {
             throw new NotFoundException("资源未找到");
         }
         movieService.delete(id);
         Movie movie1 = new Movie();
-        BeanUtils.copyProperties(movieForm,movie1);
+        BeanUtils.copyProperties(movieForm, movie1);
         Integer[] categoryIds = movieForm.getCategoryIds();
-        movieService.insert(movie1,categoryIds);
+        movieService.insert(movie1, categoryIds);
 
-        return new ResponseEntity(ReturnVOUtil.success(),HttpStatus.OK);
+        return new ResponseEntity(ReturnVOUtil.success(), HttpStatus.OK);
 
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable("id") Integer id) {
         Movie movie = repository.findById(id);
-        if (movie == null){
+        if (movie == null) {
             throw new NotFoundException("资源未找到");
         }
         int i = movieService.delete(id);
-        if (i>0){
-            return new ResponseEntity(ReturnVOUtil.success(),HttpStatus.OK);
+        if (i > 0) {
+            return new ResponseEntity(ReturnVOUtil.success(), HttpStatus.OK);
         }
         throw new CommonException("删除失败");
     }
@@ -98,13 +98,13 @@ public class MovieController {
     @GetMapping("/{id}/scenes")
     public ResponseEntity getMovieScenes(@PathVariable("id") Integer id) {
         Movie movie = repository.findById(id);
-        if (movie == null){
+        if (movie == null) {
             throw new NotFoundException("资源未找到");
         }
         List<Scene> sceneList = sceneRepository.findByMovieName(movie.getName());
-        if (sceneList.size()==0){
-            return new ResponseEntity(null,HttpStatus.OK);
+        if (sceneList.size() == 0) {
+            return new ResponseEntity(null, HttpStatus.OK);
         }
-        return new ResponseEntity(sceneList,HttpStatus.OK);
+        return new ResponseEntity(sceneList, HttpStatus.OK);
     }
 }

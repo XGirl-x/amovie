@@ -11,7 +11,7 @@ public class CookieUtil {
 
 
     public static Cookie findCookie(Cookie[] cookies) {
-        if (cookies==null){
+        if (cookies == null) {
             return null;
         }
         Optional<Cookie> userId = Arrays.stream(cookies).filter(c -> c.getName().equals("userId")).findFirst();

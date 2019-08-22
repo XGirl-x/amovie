@@ -31,13 +31,13 @@ public class MovieRepositoryTest {
                         "《速度与激情》是一部由罗伯·科恩执导的动作犯罪类电影。是环球影业发行的《速度与激情》系列电影的第一部。保罗·沃克、范·迪塞尔、乔丹娜·布鲁斯特和米歇尔·罗德里格兹等...",
                         "images/poster/movie1.jpg",
                         "美国"));
-        Assert.assertEquals(1,i);
+        Assert.assertEquals(1, i);
     }
 
     @Test
     public void delete() {
         int i = repository.delete(1);
-        Assert.assertEquals(1,i);
+        Assert.assertEquals(1, i);
     }
 
     @Test
@@ -46,7 +46,7 @@ public class MovieRepositoryTest {
         System.out.println(movie);
         movie.setName("速度与激情4");
         int i = repository.update(movie);
-        Assert.assertEquals(1,i);
+        Assert.assertEquals(1, i);
     }
 
     @Test

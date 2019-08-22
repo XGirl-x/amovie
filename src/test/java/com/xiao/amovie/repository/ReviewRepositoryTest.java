@@ -10,8 +10,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
-
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class ReviewRepositoryTest {
@@ -26,13 +24,13 @@ public class ReviewRepositoryTest {
                 .movieId(2)
                 .userId(6)
                 .build());
-        Assert.assertEquals(1,i);
+        Assert.assertEquals(1, i);
     }
 
     @Test
     public void delete() {
         int i = repository.delete(2);
-        Assert.assertEquals(1,i);
+        Assert.assertEquals(1, i);
     }
 
     @Test
@@ -40,7 +38,7 @@ public class ReviewRepositoryTest {
         Review review = repository.findById(1);
         review.setContent("刺激大片");
         int i = repository.update(review);
-        Assert.assertEquals(1,i);
+        Assert.assertEquals(1, i);
     }
 
     @Test

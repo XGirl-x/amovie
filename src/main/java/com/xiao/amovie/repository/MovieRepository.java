@@ -1,7 +1,9 @@
 package com.xiao.amovie.repository;
 
 import com.xiao.amovie.entity.Movie;
-import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Options;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -10,7 +12,7 @@ import java.util.List;
 public interface MovieRepository {
 
     @Insert("insert into movie(name,duration,directors,actors,release_date,status,plot,poster,country) values(#{name},#{duration},#{directors},#{actors},#{releaseDate},#{status},#{plot},#{poster},#{country})")
-    @Options(useGeneratedKeys = true,keyColumn = "id",keyProperty = "id")
+    @Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id")
     int insert(Movie movie);
 
     @Delete("delete from movie where id=#{id}")
@@ -34,6 +36,7 @@ public interface MovieRepository {
 
     /**
      * 通过导演查询
+     *
      * @param directors
      * @return
      */
@@ -41,6 +44,7 @@ public interface MovieRepository {
 
     /**
      * 通过演员查询
+     *
      * @param directors
      * @return
      */
@@ -48,6 +52,7 @@ public interface MovieRepository {
 
     /**
      * 通过国家查询
+     *
      * @param country
      * @return
      */

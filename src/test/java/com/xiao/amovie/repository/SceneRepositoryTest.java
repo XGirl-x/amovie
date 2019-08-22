@@ -9,10 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -30,13 +27,13 @@ public class SceneRepositoryTest {
                 .showtime("")
                 .bookedSeat("[G2,G3]")
                 .build());
-        Assert.assertEquals(1,i);
+        Assert.assertEquals(1, i);
     }
 
     @Test
     public void delete() {
         int i = repository.delete(2);
-        Assert.assertEquals(1,i);
+        Assert.assertEquals(1, i);
     }
 
     @Test
@@ -44,7 +41,7 @@ public class SceneRepositoryTest {
         Scene scene = repository.findById(1);
         scene.setPrice(new BigDecimal(33.3));
         int i = repository.update(scene);
-        Assert.assertEquals(1,i);
+        Assert.assertEquals(1, i);
     }
 
     @Test

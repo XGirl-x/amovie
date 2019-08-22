@@ -11,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.Assert.*;
-
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class UserRepositoryTest {
@@ -27,7 +25,7 @@ public class UserRepositoryTest {
     }
 
     @Test
-    public void findByEmail(){
+    public void findByEmail() {
         User user = repository.findByEmail("283710867@qq.com");
         Assert.assertNotNull(user);
     }
@@ -35,14 +33,14 @@ public class UserRepositoryTest {
     @Test
     public void delete() {
         int i = repository.delete(8);
-        Assert.assertEquals(1,i);
+        Assert.assertEquals(1, i);
     }
 
     @Test
     public void update() {
         User user = repository.findById(5);
         String salt = MD5Utils.getSalt();
-        String encryptPassword = MD5Utils.md5("111",salt);
+        String encryptPassword = MD5Utils.md5("111", salt);
         user.setNickname("xiao");
         user.setEmail("111@qq.com");
         user.setPassword(encryptPassword);
@@ -51,7 +49,7 @@ public class UserRepositoryTest {
 
         int i = repository.update(user);
 
-        Assert.assertEquals(1,i);
+        Assert.assertEquals(1, i);
 
     }
 }

@@ -87,11 +87,11 @@
 
         <!-- Additional header buttons / Auth and direct link to booking-->
         <div class="control-panel">
-            <div class="auth auth--home" >
+            <div class="auth auth--home">
                 <div class="auth__show">
                 </div>
                 <div th:if="${session.user!=null}">
-                    <a href="#" class="btn btn--sign btn--singin" >
+                    <a href="#" class="btn btn--sign btn--singin">
                         <span th:text="${session.user.nickname}"></span>
                     </a>
                     <ul class="auth__function">
@@ -101,7 +101,8 @@
                     </ul>
                 </div>
                 <div th:if="${session.user==null}">
-                    <a href="#" class="btn btn-md btn--warning btn--book btn-control--home login-window" style="position: absolute;top: 10px">登录</a>
+                    <a href="#" class="btn btn-md btn--warning btn--book btn-control--home login-window"
+                       style="position: absolute;top: 10px">登录</a>
                 </div>
             </div>
             <div th:if="${session.user!=null}">

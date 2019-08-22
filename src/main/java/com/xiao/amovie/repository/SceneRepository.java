@@ -2,7 +2,9 @@ package com.xiao.amovie.repository;
 
 
 import com.xiao.amovie.entity.Scene;
-import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -30,5 +32,5 @@ public interface SceneRepository {
     @Select("select * from scene where movie_name=#{movieName}")
     List<Scene> findByMovieName(String movieName);
 
-    
+
 }

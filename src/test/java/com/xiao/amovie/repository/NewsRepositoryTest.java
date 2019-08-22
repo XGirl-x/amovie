@@ -10,8 +10,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
-
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class NewsRepositoryTest {
@@ -25,7 +23,7 @@ public class NewsRepositoryTest {
                 .content("今日资讯")
                 .build()
         );
-        Assert.assertEquals(1,i);
+        Assert.assertEquals(1, i);
     }
 
     @Test
@@ -33,7 +31,7 @@ public class NewsRepositoryTest {
         News news = repository.findById(1);
         news.setContent("资讯资讯");
         int i = repository.update(news);
-        Assert.assertEquals(1,i);
+        Assert.assertEquals(1, i);
     }
 
     @Test

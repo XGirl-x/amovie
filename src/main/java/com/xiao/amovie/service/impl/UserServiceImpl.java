@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean isExistUser(String email) {
         User user = repository.findByEmail(email);
-        return user!=null;
+        return user != null;
     }
 
     @Override
@@ -33,16 +33,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean register(User user) {
         boolean existUser = isExistUser(user.getEmail());
-        if (existUser){
+        if (existUser) {
             throw new CommonException("该邮箱已被注册");
-        }
-        else if (!existUser) {
+        } else if (!existUser) {
             String salt = MD5Utils.getSalt();
-            String encryptPassword = MD5Utils.md5(user.getPassword(),salt);
+            String encryptPassword = MD5Utils.md5(user.getPassword(), salt);
             user.setPassword(encryptPassword);
             user.setSalt(salt);
             int i = repository.insert(user);
-            if (i>0){
+            if (i > 0) {
                 return true;
             }
         }
@@ -50,11 +49,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean login(String email,String password) {
+    public boolean login(String email, String password) {
         User user = repository.findByEmail(email);
-        if (user!=null){
+        if (user != null) {
             String salt = user.getSalt();
-            String encryptPassword = MD5Utils.md5(password,salt);
+            String encryptPassword = MD5Utils.md5(password, salt);
             return encryptPassword.equals(user.getPassword());
         }
         return false;

@@ -9,11 +9,10 @@ import lombok.Getter;
 @Getter
 public enum Role {
     USER("普通用户"),
-    ADMIN("管理员")
-    ;
+    ADMIN("管理员");
     private String message;
 
-    Role(String message){
+    Role(String message) {
         this.message = message;
     }
 }

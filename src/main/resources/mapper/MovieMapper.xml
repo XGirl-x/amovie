@@ -34,7 +34,7 @@
             <result property="name" column="category_name"></result>
         </collection>
     </resultMap>-->
-    
+
     <resultMap id="findMovieAndCategory" type="Movie">
         <id property="id" column="id" javaType="int"></id>
         <result property="name" column="name"></result>
