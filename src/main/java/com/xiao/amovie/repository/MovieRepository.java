@@ -45,10 +45,10 @@ public interface MovieRepository {
     /**
      * 通过演员查询
      *
-     * @param directors
+     * @param actors
      * @return
      */
-    List<Movie> findByActors(String directors);
+    List<Movie> findByActors(String actors);
 
     /**
      * 通过国家查询

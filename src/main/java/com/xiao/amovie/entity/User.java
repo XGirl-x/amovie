@@ -1,5 +1,7 @@
 package com.xiao.amovie.entity;
 
+import com.xiao.amovie.enums.Gender;
+import com.xiao.amovie.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,13 +35,13 @@ public class User {
      * 性别
      * {@link com.xiao.amovie.enums.Gender}
      */
-    private Integer gender;
+    private Integer gender = Gender.OTHER.getCode();
 
     /**
      * 角色
      * {@link com.xiao.amovie.enums.Role}
      */
-    private String role;
+    private String role = Role.USER.getMessage();
 
     public User(String nickname, String email, String password, String salt, String phone, Integer gender, String role) {
         this.nickname = nickname;

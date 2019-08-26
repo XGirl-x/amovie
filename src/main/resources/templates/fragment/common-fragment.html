@@ -101,8 +101,10 @@
                     </ul>
                 </div>
                 <div th:if="${session.user==null}">
-                    <a href="#" class="btn btn-md btn--warning btn--book btn-control--home login-window"
+                    <a href="#" class="btn btn-md btn--shine btn--book btn-control--home login-window"
                        style="position: absolute;top: 10px">登录</a>
+                    <a href="/register.html" class="btn btn-md btn--shine btn--book btn-control--home"
+                       style="position: absolute;top: 10px;left: 80px">注册</a>
                 </div>
             </div>
             <div th:if="${session.user!=null}">

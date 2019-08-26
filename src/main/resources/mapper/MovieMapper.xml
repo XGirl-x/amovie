@@ -18,22 +18,6 @@
         </set>
         WHERE id = #{id}
     </update>
-    <!--<resultMap id="findMoviesAndCategory" type="Movie">
-        <id property="id" column="id" javaType="int"></id>
-        <result property="name" column="name"></result>
-        <result property="duration" column="duration"></result>
-        <result property="directors" column="directors"></result>
-        <result property="actors" column="actors"></result>
-        <result property="releaseDate" column="release_date"></result>
-        <result property="status" column="status"></result>
-        <result property="plot" column="plot"></result>
-        <result property="poster" column="poster"></result>
-        <result property="country" column="country"></result>
-        <collection property="categoryList" ofType="Category">
-            <id property="id" column="category_id"></id>
-            <result property="name" column="category_name"></result>
-        </collection>
-    </resultMap>-->
 
     <resultMap id="findMovieAndCategory" type="Movie">
         <id property="id" column="id" javaType="int"></id>

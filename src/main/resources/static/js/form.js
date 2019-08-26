@@ -76,7 +76,7 @@ $(function () {
         }); // end post
     }); // end submit
 
-    $('.login').submit(function (e) {
+    $('#login-form').submit(function (e) {
 
         e.preventDefault();
         var error = 0;
@@ -120,6 +120,80 @@ $(function () {
         });
         // var formInput = self.serialize();
         // $.post(self.attr('action'),formInput, function(data){}); // end post
+    }); // end submit
+
+
+    //注册
+    $('#register-form').submit(function (e) {
+
+        e.preventDefault();
+        var error = 0;
+        var self = $(this);
+
+        var $name = self.find('[type=text]');
+        var $pass = self.find('[type=password]');
+        var $email = self.find('[type=email]');
+        var $tel = self.find('[type=tel]');
+        var $gender = self.find('[type=gender]');
+
+        var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+        if (!emailRegex.test($email.val())) {
+            createErrTult("Error! Wrong email!", $email);
+            error++;
+        }
+
+        if ($pass.val().length > 1 && $pass.val() != $pass.attr('placeholder')) {
+            $pass.removeClass('invalid_field');
+        } else {
+            createErrTult('Error! Wrong password!', $pass);
+            error++;
+        }
+
+        var  telRegex = /^1([38]\d|5[0-35-9]|7[3678])\d{8}$/;
+
+        if (!telRegex.test($tel.val())) {
+            createErrTult("Error! Wrong telephone!",$tel);
+            error++;
+        }
+
+        var data = {
+            nickname:$name.val(),
+            password:$pass.val(),
+            phone:$tel.val(),
+            email:$email.val(),
+            gender:$gender.val(),
+        };
+        $.ajax({
+            url:'/register',
+            method:'POST',
+            contentType:'application/json',
+            data:JSON.stringify(data),
+            dataType:'json',
+            success:function (data) {
+                alert(data.message)
+                self.children().fadeOut(300,function () {
+                    $(this).remove()
+                });
+                window.location.href = "/login.html";
+                if (error != 0) return;
+                self.find('[type = submit]').attr('disabled','disabled');
+            },
+            error:function (data) {
+                alert(data.message);
+            }
+        }
+        /*var formInput = self.serialize();
+        $.post('register', formInput, function (data) {
+            if (data.msg == "成功") {
+                alert(data.msg);
+                setTimeout(function () {
+                    window.location.href = "/login.html";
+                }, 1000)
+            } else {
+                alert(data.msg)
+            }
+        }*/);
     }); // end submit
 
 

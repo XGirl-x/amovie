@@ -19,6 +19,11 @@ public class RouterController {
         return "login";
     }
 
+    @RequestMapping("/register.html")
+    public String register() {
+        return "register";
+    }
+
     @RequestMapping("/book1.html")
     public String book1() {
         return "book1";
