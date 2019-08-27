@@ -1,10 +1,14 @@
 package com.xiao.amovie.controller;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.xiao.amovie.entity.News;
 import com.xiao.amovie.entity.User;
 import com.xiao.amovie.enums.Gender;
 import com.xiao.amovie.enums.Role;
 import com.xiao.amovie.from.ResultForm;
 import com.xiao.amovie.from.UserForm;
+import com.xiao.amovie.repository.NewsRepository;
 import com.xiao.amovie.repository.UserRepository;
 import com.xiao.amovie.service.UserService;
 import com.xiao.amovie.utils.EmailRegex;
@@ -15,6 +19,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,34 +41,16 @@ public class UserController {
     private UserService userService;
 
     @Autowired
-    private UserRepository repository;
+    private NewsRepository repository;
 
-    /*@PostMapping("/register")
-    public ResultForm register(HttpServletRequest request) {
-        String nickname = request.getParameter("name");
-        String password = request.getParameter("password");
-        String onfirmpPassword = request.getParameter("onfirmpPassword");
-        String email = request.getParameter("email");
-        String phone = request.getParameter("phone");
-        Integer gender = Integer.valueOf(request.getParameter("gender"));
-        if (!onfirmpPassword.equals(password) || onfirmpPassword==""){
-            return ResultVOUtil.error("密码输入有误");
-        }
-        EmailRegex emailRegex = new EmailRegex();
-        if (!emailRegex.isEmail(email)){
-            return ResultVOUtil.error("邮箱格式错误！");
-        }
-        User user = repository.findByEmail(email);
-        if (user != null){
-            return ResultVOUtil.error("该邮箱已被注册");
-        }
-        User user1 = new User(nickname, email, password, phone, gender, Role.USER.getMessage());
-        boolean b = userService.register(user1);
-        if (b) {
-            return ResultVOUtil.success();
-        }
-        return ResultVOUtil.error("注册失败");
-    }*/
+    @GetMapping(value = {"/","/index"})
+    public String newsIndex(@RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+                                    @RequestParam(value = "size", required = false, defaultValue = "3") Integer size,
+                                    Model model) {
+        Page<News> newsList = PageHelper.startPage(page, size).doSelectPage(() -> repository.getAll());
+        model.addAttribute("newsList",newsList);
+        return "index";
+    }
 
     @PostMapping(value = "/register",consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity register (@RequestBody @Valid UserForm userForm, BindingResult bindingResult) {
@@ -83,7 +70,6 @@ public class UserController {
             return new ResponseEntity(map,HttpStatus.BAD_REQUEST);
         }
     }
-
 
     @PostMapping("/login")
     @ResponseBody

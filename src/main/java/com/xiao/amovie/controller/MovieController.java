@@ -3,14 +3,18 @@ package com.xiao.amovie.controller;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.xiao.amovie.entity.Movie;
+import com.xiao.amovie.entity.Review;
 import com.xiao.amovie.entity.Scene;
 import com.xiao.amovie.exception.CommonException;
 import com.xiao.amovie.exception.NotFoundException;
 import com.xiao.amovie.from.MovieForm;
+import com.xiao.amovie.from.ReviewForm;
 import com.xiao.amovie.repository.CategoryRepository;
 import com.xiao.amovie.repository.MovieRepository;
+import com.xiao.amovie.repository.ReviewRepository;
 import com.xiao.amovie.repository.SceneRepository;
 import com.xiao.amovie.service.MovieService;
+import com.xiao.amovie.service.ReviewService;
 import com.xiao.amovie.utils.ReturnVOUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,35 +38,33 @@ public class MovieController {
     private MovieRepository repository;
 
     @Autowired
-    private CategoryRepository categoryRepository;
-
-    @Autowired
     private SceneRepository sceneRepository;
 
     @Autowired
     private MovieService movieService;
 
-    /*@GetMapping
-    public ResponseEntity getAll(@RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
-                                 @RequestParam(value = "size", required = false, defaultValue = "20") Integer size) {
-        Page<Movie> movieList = PageHelper.startPage(page, size).doSelectPage(() -> repository.getAll());
-        return new ResponseEntity(movieList.toPageInfo(), HttpStatus.OK);
-    }*/
+    @Autowired
+    private ReviewService reviewService;
 
     @GetMapping
     public String getAll(@RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
-                         @RequestParam(value = "size", required = false, defaultValue = "3") Integer size, Model model) {
+                         @RequestParam(value = "size", required = false, defaultValue = "3") Integer size,
+                         Model model) {
         Page<Movie> movieList = PageHelper.startPage(page, size).doSelectPage(() -> repository.getAll());
         model.addAttribute("movieList",movieList);
         return "movie-list";
     }
 
-
     @GetMapping("/{id}")
-    public ResponseEntity getById(@PathVariable("id") Integer id) {
+    public String getById(@PathVariable("id") Integer id, Model model) {
         Movie movie = repository.findById(id);
         if (movie != null) {
-            return new ResponseEntity(movie, HttpStatus.OK);
+            List<Scene> sceneList = sceneRepository.findByMovieName(movie.getName());
+            List<ReviewForm> reviewFormList = reviewService.findByMovieId(id);
+            model.addAttribute("movie",movie);
+            model.addAttribute("sceneList",sceneList);
+            model.addAttribute("reviewList",reviewFormList);
+            return "movie";
         }
         throw new NotFoundException("资源未找到");
     }
@@ -106,7 +108,7 @@ public class MovieController {
         throw new CommonException("删除失败");
     }
 
-    @GetMapping("/{id}/scenes")
+    /*@GetMapping("/{id}/scenes")
     public ResponseEntity getMovieScenes(@PathVariable("id") Integer id) {
         Movie movie = repository.findById(id);
         if (movie == null) {
@@ -117,5 +119,5 @@ public class MovieController {
             return new ResponseEntity(null, HttpStatus.OK);
         }
         return new ResponseEntity(sceneList, HttpStatus.OK);
-    }
+    }*/
 }

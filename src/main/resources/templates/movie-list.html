@@ -113,16 +113,16 @@
             <div class="movie movie--preview movie--full release">
                 <div class="col-sm-3 col-md-2 col-lg-2">
                     <div class="movie__images">
-                        <img alt="" src="http://placehold.it/380x600"/>
+                        <img alt="" th:src="@{${m.poster}}"/>
                     </div>
                     <!-- 评论数 -->
                     <div class="movie__feature">
-                        <a href="#" class="movie__feature-item movie__feature--comment">123</a>
+                        <a th:href="'/movies/'+${m.getId()}" class="movie__feature-item movie__feature--comment">123</a>
                     </div>
                 </div>
 
                 <div class="col-sm-9 col-md-10 col-lg-10 movie__about">
-                    <a href="movie.html" class="movie__title link--huge"
+                    <a th:href="'/movies/'+${m.getId()}"  class="movie__title link--huge"
                     ><!--Last Vegas (2013)-->
                     <span th:text="${m.name}"></span></a
                     >

@@ -11,13 +11,13 @@
     <section class="container">
         <div class="col-sm-12">
             <div class="movie">
-                <h2 class="page-heading">The Hobbit: An Unexpected Journey</h2>
+                <h2 class="page-heading"><span th:text="${movie.getName()}"></span></h2>
 
                 <div class="movie__info">
                     <div class="col-sm-4 col-md-3 movie-mobile">
                         <div class="movie__images">
                             <span class="movie__rating">5.0</span>
-                            <img alt="" src="http://placehold.it/526x773"/>
+                            <img alt="" th:src="@{${movie.poster}}"/>
                         </div>
                         <div class="movie__rate">
                             Your vote:
@@ -26,29 +26,37 @@
                     </div>
 
                     <div class="col-sm-8 col-md-9">
-                        <p class="movie__time">169 min</p>
+                        <p class="movie__time">
+                            <span th:text="${movie.getDuration()}"></span>
+                        </p>
 
                         <p class="movie__option">
-                            <strong>国家: </strong><a href="#">New Zeland</a>,
-                            <a href="#">USA</a>
+                            <strong>国家: </strong><a href="#">
+                            <span th:text="${movie.getCountry()}"></span>
+                        </a>
                         </p>
                         <p class="movie__option">
-                            <strong>年份: </strong><a href="#">2012</a>
+                            <strong>年份: </strong><a href="#">
+                            <span th:text="${movie.getReleaseDate().getYear()+1900}"></span>
+                        </a>
                         </p>
                         <p class="movie__option">
-                            <strong>类别: </strong><a href="#">Adventure</a>,
-                            <a href="#">Fantazy</a>
+                            <strong>类别: </strong>
+                        <span th:each="category:${movie.getCategories()}">
+                            <a href="#" th:text="${category.getName()}"></a>
+                        </span>
                         </p>
                         <p class="movie__option">
-                            <strong>上映日期: </strong>December 12, 2012
+                            <strong>上映日期: </strong><!--December 12, 2012-->
+                            <span th:text="${#dates.format(movie.getReleaseDate(),'yyyy-MM-dd')}"></span>
                         </p>
                         <p class="movie__option">
-                            <strong>导演: </strong><a href="#">Peter Jackson</a>
+                            <strong>导演: </strong><a href="#" th:text="${movie.getDirectors()}"></a>
                         </p>
                         <p class="movie__option">
                             <strong>演员: </strong>
-                            <a href="#">Martin Freeman</a>,
-                            <a href="#">Ian McKellen</a>,
+                            <a href="#" th:text="${movie.getActors()}"></a>
+                            <!--<a href="#">Ian McKellen</a>,
                             <a href="#">Richard Armitage</a>,
                             <a href="#">Ken Stott</a>,
                             <a href="#">Graham McTavish</a>,
@@ -56,7 +64,8 @@
                             <a href="#">Hugo Weaving</a>,
                             <a href="#">Ian Holm</a>,
                             <a href="#">Elijah Wood</a>
-                            <a href="#">...</a>
+                            <a href="#">...</a>-->
+                        </p>
 
                             <a href="#" class="comment-link">评论: 15</a>
 
@@ -72,7 +81,8 @@
                 <h2 class="page-heading">剧情</h2>
 
                 <p class="movie__describe">
-                    Bilbo Baggins is swept into a quest to reclaim the lost Dwarf
+                    <span th:text="${movie.getPlot()}"></span>
+                    <!--Bilbo Baggins is swept into a quest to reclaim the lost Dwarf
                     Kingdom of Erebor from the fearsome dragon Smaug. Approached out
                     of the blue by the wizard Gandalf the Grey, Bilbo finds himself
                     joining a company of thirteen dwarves led by the legendary
@@ -87,7 +97,7 @@
                     guile and courage that surprise even him, he also gains possession
                     of Gollum's "precious" ring that holds unexpected and useful
                     qualities ... A simple, gold ring that is tied to the fate of all
-                    Middle-earth in ways Bilbo cannot begin to ...
+                    Middle-earth in ways Bilbo cannot begin to ...-->
                 </p>
             </div>
 
@@ -99,21 +109,22 @@
                 <div class="time-select">
                     <div class="time-select__group">
                         <div class="col-sm-4">
-                            <p class="time-select__place">Curzon</p>
+                            <p class="time-select__place">A-Movie</p>
                         </div>
-                        <ul class="col-sm-8 items-wrap">
-                            <li class="time-select__item" data-time="09:00">09:00</li>
-                            <li class="time-select__item" data-time="11:00">11:00</li>
+                        <ul class="col-sm-8 items-wrap" th:if="${!#lists.isEmpty(sceneList)}">
+                            <span th:each="scene:${sceneList}" >
+                            <li class="time-select__item" th:data-time="${scene.getShowtime()}" th:text="${scene.getShowtime()}"></li>
+                            <!--<li class="time-select__item" data-time="11:00">11:00</li>
                             <li class="time-select__item" data-time="13:00">13:00</li>
                             <li class="time-select__item" data-time="15:00">15:00</li>
                             <li class="time-select__item" data-time="17:00">17:00</li>
                             <li class="time-select__item" data-time="19:0">19:00</li>
                             <li class="time-select__item" data-time="21:0">21:00</li>
                             <li class="time-select__item" data-time="23:0">23:00</li>
-                            <li class="time-select__item" data-time="01:0">01:00</li>
+                            <li class="time-select__item" data-time="01:0">01:00</li>-->
+                            </span>
                         </ul>
                     </div>
-
                 </div>
 
                 <h2 class="page-heading">评论 (15)</h2>
@@ -132,32 +143,19 @@
                         </button>
                     </form>
 
-                    <div class="comment-sets">
+                    <div class="comment-sets" th:if="${!#lists.isEmpty(reviewList)}">
+                        <span th:each="review:${reviewList}">
                         <!-- 评论 -->
                         <div class="comment">
-                            <a href="#" class="comment__author">Roberta Inetti</a>
-                            <p class="comment__date">today | 03:04</p>
+                            <a href="#" class="comment__author"><span th:text="${review.getNickName()}"></span></a>
+                            <p class="comment__date"><span th:text="${#dates.format(review.createTime,'yyyy-MM-dd HH:mm:ss')}"></span></p>
                             <p class="comment__message">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
+                                <span th:text="${review.getContent()}"></span>
+                                <!--Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
                                 vitae enim sollicitudin, euismod erat id, fringilla lacus.
                                 Cras ut rutrum lectus. Etiam ante justo, volutpat at viverra
                                 a, mattis in velit. Morbi molestie rhoncus enim, vitae
-                                sagittis dolor tristique et.
-                            </p>
-                            <a href="#" class="comment__reply">Reply</a>
-                        </div>
-                        <!-- 评论结束 -->
-
-                        <!-- 评论 -->
-                        <div class="comment">
-                            <a href="#" class="comment__author">Olia Gozha</a>
-                            <p class="comment__date">22.10.2013 | 14:40</p>
-                            <p class="comment__message">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-                                vitae enim sollicitudin, euismod erat id, fringilla lacus.
-                                Cras ut rutrum lectus. Etiam ante justo, volutpat at viverra
-                                a, mattis in velit. Morbi molestie rhoncus enim, vitae
-                                sagittis dolor tristique et.
+                                sagittis dolor tristique et.-->
                             </p>
                             <a href="#" class="comment__reply">Reply</a>
                         </div>
@@ -177,6 +175,7 @@
                             </p>
                             <a href="#" class="comment__reply">Reply</a>
                         </div>
+                            </span>
                         <!-- 回复结束 -->
                     </div>
                 </div>

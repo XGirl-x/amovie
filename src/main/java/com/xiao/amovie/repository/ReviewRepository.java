@@ -27,6 +27,9 @@ public interface ReviewRepository {
     @Select("select * from review where id=#{id}")
     Review findById(Integer id);
 
+    @Select("select * from review where movie_id=#{movieId}")
+    List<Review> findByMovieId(Integer movieId);
+
     @Select("select * from review")
     List<Review> getAll();
 }

@@ -46,4 +46,10 @@ public class ReviewRepositoryTest {
         List<Review> reviewList = repository.getAll();
         Assert.assertNotNull(reviewList);
     }
+
+    @Test
+    public void findByMovieId() {
+        List<Review> reviewList = repository.findByMovieId(2);
+        System.out.println(reviewList);
+    }
 }
