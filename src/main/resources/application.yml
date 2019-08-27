@@ -8,6 +8,9 @@ spring:
     prefix: classpath:/templates/
     suffix: .html
     cache: false
+  servlet:
+    multipart:
+      max-file-size: 10MB
 mybatis:
   type-aliases-package: com.xiao.amovie.entity
   configuration:

@@ -108,6 +108,8 @@
             </div>
 
             <!-- Movie preview item -->
+
+            <div th:each="m:${movieList}">
             <div class="movie movie--preview movie--full release">
                 <div class="col-sm-3 col-md-2 col-lg-2">
                     <div class="movie__images">
@@ -121,22 +123,27 @@
 
                 <div class="col-sm-9 col-md-10 col-lg-10 movie__about">
                     <a href="movie.html" class="movie__title link--huge"
-                    >Last Vegas (2013)</a
+                    ><!--Last Vegas (2013)-->
+                    <span th:text="${m.name}"></span></a
                     >
 
-                    <p class="movie__time">105 min</p>
+                    <p class="movie__time"><!--105 min-->
+                    <span th:text="${m.duration}"></span></p>
 
                     <p class="movie__option">
-                        <strong>Country: </strong><a href="#">USA</a>
+                        <strong>Country: </strong><a href="#"><!--USA-->
+                    <span th:text="${m.country}"></span></a>
                     </p>
                     <p class="movie__option">
                         <strong>Category: </strong><a href="#">Comady</a>
                     </p>
                     <p class="movie__option">
-                        <strong>Release date: </strong>November 1, 2013
+                        <strong>Release date: </strong><!--November 1, 2013-->
+                        <span th:text="${#dates.format(m.releaseDate,'yyyy-MM-dd HH:mm:ss')}"></span>
                     </p>
                     <p class="movie__option">
-                        <strong>Director: </strong><a href="#">Jon Turteltaub</a>
+                        <strong>Director: </strong><a href="#"><!--Jon Turteltaub-->
+                        <span th:text="${m.directors}"></span></a>
                     </p>
                     <p class="movie__option">
                         <strong>Actors: </strong><a href="#">Robert De Niro</a>,
@@ -162,15 +169,15 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="clearfix"></div>
+            </div>
             </div>
             <!-- end movie preview item -->
 
             <div class="coloum-wrapper">
                 <div class="pagination paginatioon--full">
-                    <a href="#" class="pagination__prev">prev</a>
-                    <a href="#" class="pagination__next">next</a>
+                    <a th:href="@{/movies(page=${movieList.pageNum}-1)}" class="pagination__prev">prev</a>
+                    <a th:href="@{/movies(page=${movieList.pageNum}+1)}" class="pagination__next">next</a>
                 </div>
             </div>
         </div>

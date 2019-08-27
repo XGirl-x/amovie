@@ -26,6 +26,9 @@ public class MovieServiceImpl implements MovieService {
         int i = repository.insert(movie);
         if (i > 0) {
             Integer movieId = movie.getId();
+            if (categoryIds == null) {
+                return i;
+            }
             for (int categoryId : categoryIds) {
                 categoryRepository.insertCategories(categoryId, movieId);
             }

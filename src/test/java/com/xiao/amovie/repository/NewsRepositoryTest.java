@@ -21,6 +21,7 @@ public class NewsRepositoryTest {
     public void insert() {
         int i = repository.insert(News.builder()
                 .content("今日资讯")
+                .title("资讯")
                 .build()
         );
         Assert.assertEquals(1, i);

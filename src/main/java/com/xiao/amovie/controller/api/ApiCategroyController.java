@@ -1,4 +1,4 @@
-package com.xiao.amovie.controller;
+package com.xiao.amovie.controller.api;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -14,13 +14,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * @author xiao
  */
-@Controller
+@RestController
 @CrossOrigin
-@RequestMapping("/categories")
-public class CategroyController {
+@RequestMapping("/api/categories")
+public class ApiCategroyController {
 
     @Autowired
     private CategoryRepository repository;
@@ -29,11 +31,16 @@ public class CategroyController {
     private CategoryService service;
 
     @GetMapping
-    @ResponseBody
     public ResponseEntity getAll(@RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
                                  @RequestParam(value = "size", required = false, defaultValue = "20") Integer size) {
         Page<Category> categoryList = PageHelper.startPage(page, size).doSelectPage(() -> service.getAll());
         return new ResponseEntity(categoryList.toPageInfo(), HttpStatus.OK);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity findAll() {
+        List<Category> categoryList = repository.getAll();
+        return new ResponseEntity(categoryList,HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -46,8 +53,8 @@ public class CategroyController {
     }
 
     @PostMapping
-    public ResponseEntity insert(@RequestParam("name") String name) {
-        int i = repository.insert(new Category(name));
+    public ResponseEntity insert(@RequestBody Category category) {
+        int i = repository.insert(category);
         if (i > 0) {
             return new ResponseEntity(ReturnVOUtil.success(), HttpStatus.OK);
         }

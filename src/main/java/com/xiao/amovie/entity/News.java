@@ -24,7 +24,10 @@ public class News {
 
     private Date createTime;
 
-    public News(String content) {
+    private String title;
+
+    public News(String title, String content) {
+        this.title = title;
         this.content = content;
     }
 }

@@ -30,7 +30,7 @@
         <result property="plot" column="plot"></result>
         <result property="poster" column="poster"></result>
         <result property="country" column="country"></result>
-        <collection property="categoryList" ofType="Category" column="id" select="selectCategoryofMovie">
+        <collection property="categories" ofType="Category" column="id" select="selectCategoryofMovie">
             <id property="id" column="category_id"></id>
             <result property="name" column="category_name"></result>
         </collection>

@@ -41,8 +41,8 @@ public class CategoryRepositoryTest {
 
     @Test
     public void getAll() {
-        /*List<Category> categoryList = categoryRepository.getAll();
-        Assert.assertNotNull(categoryList);*/
+        /*List<Category> categories = categoryRepository.getAll();
+        Assert.assertNotNull(categories);*/
         Page<Category> page = PageHelper.startPage(2, 1).doSelectPage(() -> categoryRepository.getAll());
         System.out.println(page.toPageInfo());
     }

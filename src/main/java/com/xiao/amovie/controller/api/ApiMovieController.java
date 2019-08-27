@@ -1,9 +1,10 @@
-package com.xiao.amovie.controller;
+package com.xiao.amovie.controller.api;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.xiao.amovie.entity.Movie;
 import com.xiao.amovie.entity.Scene;
+import com.xiao.amovie.enums.Status;
 import com.xiao.amovie.exception.CommonException;
 import com.xiao.amovie.exception.NotFoundException;
 import com.xiao.amovie.from.MovieForm;
@@ -17,24 +18,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
  * @author xiao
  */
-@Controller
-@RequestMapping("/movies")
-public class MovieController {
+@RestController
+@CrossOrigin
+@RequestMapping("/api/movies")
+public class ApiMovieController {
 
     @Autowired
     private MovieRepository repository;
-
-    @Autowired
-    private CategoryRepository categoryRepository;
 
     @Autowired
     private SceneRepository sceneRepository;
@@ -42,21 +40,12 @@ public class MovieController {
     @Autowired
     private MovieService movieService;
 
-    /*@GetMapping
+    @GetMapping
     public ResponseEntity getAll(@RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
                                  @RequestParam(value = "size", required = false, defaultValue = "20") Integer size) {
         Page<Movie> movieList = PageHelper.startPage(page, size).doSelectPage(() -> repository.getAll());
         return new ResponseEntity(movieList.toPageInfo(), HttpStatus.OK);
-    }*/
-
-    @GetMapping
-    public String getAll(@RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
-                         @RequestParam(value = "size", required = false, defaultValue = "3") Integer size, Model model) {
-        Page<Movie> movieList = PageHelper.startPage(page, size).doSelectPage(() -> repository.getAll());
-        model.addAttribute("movieList",movieList);
-        return "movie-list";
     }
-
 
     @GetMapping("/{id}")
     public ResponseEntity getById(@PathVariable("id") Integer id) {
@@ -68,7 +57,7 @@ public class MovieController {
     }
 
     @PostMapping
-    public ResponseEntity insert(@RequestBody MovieForm movieForm) {
+    public ResponseEntity insert(@RequestBody @Valid MovieForm movieForm) {
         Movie movie = new Movie();
         BeanUtils.copyProperties(movieForm, movie);
         Integer[] categoryIds = movieForm.getCategoryIds();
@@ -117,5 +106,11 @@ public class MovieController {
             return new ResponseEntity(null, HttpStatus.OK);
         }
         return new ResponseEntity(sceneList, HttpStatus.OK);
+    }
+
+    @GetMapping("/released")
+    public ResponseEntity findByStatus() {
+        List<Movie> movieList = repository.findByStatus(Status.RELEASED.getCode());
+        return new ResponseEntity(movieList,HttpStatus.OK);
     }
 }

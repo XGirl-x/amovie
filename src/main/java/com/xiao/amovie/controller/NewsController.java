@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
  * @author xiao
  */
 @Controller
+@CrossOrigin
 @RequestMapping("/news")
 public class NewsController {
 
@@ -40,8 +41,8 @@ public class NewsController {
     }
 
     @PostMapping
-    public ResponseEntity insert(@RequestParam("content") String content) {
-        int i = repository.insert(new News(content));
+    public ResponseEntity insert(@RequestParam("title") String title, @RequestParam("content") String content) {
+        int i = repository.insert(new News(title, content));
         if (i > 0) {
             return new ResponseEntity(ReturnVOUtil.success(), HttpStatus.OK);
         }

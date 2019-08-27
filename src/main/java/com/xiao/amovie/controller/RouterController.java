@@ -46,7 +46,7 @@ public class RouterController {
 
     @RequestMapping("/movie-list.html")
     public String movieList() {
-        return "movie-list";
+        return "movies";
     }
 
     @RequestMapping("/rate.html")

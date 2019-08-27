@@ -49,7 +49,7 @@ public class Movie {
     /*国家*/
     private String country;
 
-    private List<Category> categoryList;
+    private List<Category> categories;
 
     public Movie(String name, String duration, String directors, String actors, Date releaseDate, Integer status, String plot, String poster, String country) {
         this.name = name;
