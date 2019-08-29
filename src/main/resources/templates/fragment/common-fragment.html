@@ -49,7 +49,7 @@
 <header th:fragment="header" class="header-wrapper">
     <div class="container">
         <!-- Logo link-->
-        <a href="index" class="logo">
+        <a href="/index" class="logo">
             <img alt="logo" src="/images/logo.png"/>
         </a>
 
@@ -76,7 +76,7 @@
                 </li>
                 <li>
                     <span class="sub-nav-toggle plus"></span>
-                    <a href="rate.html">排行榜</a>
+                    <a href="/rate">排行榜</a>
                 </li>
                 <li>
                     <span class="sub-nav-toggle plus"></span>
@@ -95,15 +95,15 @@
                         <span th:text="${session.user.nickname}"></span>
                     </a>
                     <ul class="auth__function">
-                        <li><a href="/watchlist.html" class="auth__function-item">观看列表</a></li>
-                        <li><a href="/ticket.html" class="auth__function-item">已预定的电影票</a></li>
+                        <li><a href="/watchlists" class="auth__function-item">观看列表</a></li>
+                        <li><a href="/ticket" class="auth__function-item">已预定的电影票</a></li>
                         <li><a href="/logout" class="auth__function-item">退出登录</a></li>
                     </ul>
                 </div>
                 <div th:if="${session.user==null}">
                     <a href="#" class="btn btn-md btn--shine btn--book btn-control--home login-window"
                        style="position: absolute;top: 10px">登录</a>
-                    <a href="/register.html" class="btn btn-md btn--shine btn--book btn-control--home"
+                    <a href="/register" class="btn btn-md btn--shine btn--book btn-control--home"
                        style="position: absolute;top: 10px;left: 80px">注册</a>
                 </div>
             </div>

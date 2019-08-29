@@ -100,7 +100,7 @@ $(function () {
             error++;
         }
         var formInput = self.serialize();
-        $.post('login', formInput, function (data) {
+        $.post('/login', formInput, function (data) {
             if (data.msg == "成功") {
                 alert(data.msg);
                 self.children().fadeOut(300, function () {
@@ -111,7 +111,7 @@ $(function () {
                 if (error != 0) return;
                 self.find('[type=submit]').attr('disabled', 'disabled');
                 setTimeout(function () {
-                    window.location.href = "/";
+                    window.location.reload();
                 }, 1000)
             } else {
                 alert(data.msg)
@@ -171,7 +171,7 @@ $(function () {
             data:JSON.stringify(data),
             dataType:'json',
             success:function (data) {
-                alert(data.message)
+                alert(data.message);
                 self.children().fadeOut(300,function () {
                     $(this).remove()
                 });

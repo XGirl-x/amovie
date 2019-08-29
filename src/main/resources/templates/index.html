@@ -387,16 +387,16 @@
             <!-- start -->
             <div class="col-sm-4 similar-wrap col--remove">
                 <div class="post post--preview post--preview--wide">
-                    <div class="post__image">
+                    <!--<div class="post__image">
                         <img alt="" src="http://placehold.it/270x330"/>
-                    </div>
+                    </div>-->
                     <p class="post__date">
                         <span th:text="${#dates.format(news.createTime,'yyyy-MM-dd HH:mm:ss')}"></span>
                     </p>
                     <a href="news.html" class="post__title">
                         <span th:text="${news.title}"></span>
                     </a>
-                    <a href="news.html" class="btn read-more post--btn">了解更多</a>
+                    <a href="/news" class="btn read-more post--btn">了解更多</a>
                 </div>
             </div>
             <!-- end -->

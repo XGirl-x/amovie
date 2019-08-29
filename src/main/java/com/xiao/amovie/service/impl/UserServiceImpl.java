@@ -22,12 +22,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean isExistUser(String email) {
         User user = repository.findByEmail(email);
-        if (user != null){
-            return true;
-        }
-        else {
-            return false;
-        }
+        return user != null;
     }
 
     @Override
@@ -48,9 +43,7 @@ public class UserServiceImpl implements UserService {
             user.setPassword(encryptPassword);
             user.setSalt(salt);
             int i = repository.insert(user);
-            if (i > 0) {
-                return true;
-            }
+            return i > 0;
         }
         return false;
     }

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<div th:replace="~{/fragment/common-fragment :: head(${movie.name})}"></div>
+<div th:replace="~{/fragment/common-fragment :: head(电影名)}"></div>
 
 <body>
 <div class="wrapper">
@@ -67,14 +67,11 @@
                             <a href="#">...</a>-->
                         </p>
 
-                            <a href="#" class="comment-link">评论:
-                                <span th:text="${count}" th:if="${count!=0}"></span>
-                                <span th:if="${count==0}">暂无评论！</span>
-                            </a>
+                            <a href="#" class="comment-link">评论: 15</a>
 
-                        <div class="movie__btns movie__btns--full" th:if="${session.user != null}">
+                        <div class="movie__btns movie__btns--full">
                             <a href="#" class="btn btn-md btn--warning" th:if="${movie.status==1}">预订此电影</a>
-                            <a th:onclick="|add(${movie.getId()})|" class="watchlist">添加到播放列表</a>
+                            <a th:onclick="|remove(${movie.getId()})|" class="watchlist removeWatchlist">从播放列表移除</a>
                         </div>
                     </div>
                 </div>
@@ -130,10 +127,7 @@
                     </div>
                 </div>
 
-                <h2 class="page-heading">评论 (
-                    <span th:text="${count}" th:if="${count!=0}"></span>
-                    <span th:if="${count==0}">暂无评论！</span>)
-                </h2>
+                <h2 class="page-heading">评论 (<span th:text="${count}"></span>)</h2>
 
                 <div class="comment-wrapper">
                     <div th:if="${session.user != null}">

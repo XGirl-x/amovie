@@ -32,4 +32,7 @@ public interface ReviewRepository {
 
     @Select("select * from review")
     List<Review> getAll();
+
+    @Select("select count(*) from review where movie_id = #{movieId}")
+    int getCount(Integer movieId);
 }

@@ -824,6 +824,51 @@ function init_MoviePage() {
 
     });
 
+    //发表评论
+    $('.comment-form__btn').click(function (e) {
+        e.preventDefault();
+        var comment = $('.comment-form__text').val();
+        var movieId = $('#movieId').val();
+        var userId = $('#userId').val();
+        var res = notBlank(comment);
+        var data = {
+            content: comment,
+            movieId: movieId,
+            userId: userId
+        };
+        if (!res) {
+            alert('您还未发表任何评论哦')
+        } else {
+            $.ajax({
+                url: '/review',
+                method: 'POST',
+                contentType: 'application/json;charset=utf-8',
+                dataType: 'json',
+                data: JSON.stringify(data),
+                success:function (result) {
+                    if (result.msg == "成功") {
+                        alert("发表成功！");
+                        setTimeout(function () {
+                            window.location.href = "/movies/"+ movieId;
+                        },200)
+                    }
+                    else {
+                        alert("发表失败！");
+                        window.location.href = "/movies/"+ movieId;
+                    }
+                }
+            })
+        }
+    });
+
+    //检测字符串是否为空
+    function notBlank(value) {
+        if (value != null && value != '' && value != undefined) {
+            return true;
+        }
+        return false;
+    }
+
     //6. Reply comment form
     //reply comment function
     $('.comment__reply').click(function (e) {
@@ -886,4 +931,57 @@ function init_SinglePage() {
                             <button type='submit' class='btn btn-md btn--danger comment-form__btn'>发表评论</button>\
                         </form>");
     });
+}
+
+function add(movieId) {
+    //添加至播放列表
+    var data = {
+        movieId: movieId
+    };
+        $.ajax({
+            url: '/watchlists',
+            method: 'POST',
+            contentType: 'application/json;charset=utf-8',
+            dataType: 'json',
+            data: JSON.stringify(data),
+            success:function (result) {
+                if (result.msg == "成功") {
+                    alert("添加成功！");
+                    setTimeout(function () {
+                        window.location.href = "/movies";
+                    },200)
+                }
+                else if (result.msg == "该电影已被添加至播放列表无需再次添加") {
+                    alert(result.msg);
+                }
+                else {
+                    alert("添加失败！");
+                }
+            }
+        });
+}
+
+function remove(movieId) {
+    //从列表删除
+    var data = {
+        movieId: movieId
+    };
+    $.ajax({
+        url: '/watchlists',
+        method: 'DELETE',
+        contentType: 'application/json;charset=utf-8',
+        dataType: 'json',
+        data: JSON.stringify(data),
+        success:function (result) {
+            if (result.msg == "成功") {
+                alert("移除成功！");
+                window.location.href = "/watchlists";
+            }
+            else {
+                alert("删除失败！");
+            }
+        }
+
+    })
+
 }

@@ -109,7 +109,7 @@
 
             <!-- Movie preview item -->
 
-            <div th:each="m:${movieList}">
+            <div th:each="m:${movieList.list}">
             <div class="movie movie--preview movie--full release">
                 <div class="col-sm-3 col-md-2 col-lg-2">
                     <div class="movie__images">
@@ -117,7 +117,9 @@
                     </div>
                     <!-- 评论数 -->
                     <div class="movie__feature">
-                        <a th:href="'/movies/'+${m.getId()}" class="movie__feature-item movie__feature--comment">123</a>
+                        <a th:href="'/movies/'+${m.getId()}" class="movie__feature-item movie__feature--comment">
+                            <span th:text="${m.name}"></span>
+                        </a>
                     </div>
                 </div>
 
@@ -135,7 +137,10 @@
                     <span th:text="${m.country}"></span></a>
                     </p>
                     <p class="movie__option">
-                        <strong>Category: </strong><a href="#">Comady</a>
+                        <strong>Category: </strong>
+                        <span th:each="c:${m.getCategories()}">
+                            <a href="#"><span th:text="${c.name}"></span></a>
+                        </span>
                     </p>
                     <p class="movie__option">
                         <strong>Release date: </strong><!--November 1, 2013-->
@@ -146,19 +151,21 @@
                         <span th:text="${m.directors}"></span></a>
                     </p>
                     <p class="movie__option">
-                        <strong>Actors: </strong><a href="#">Robert De Niro</a>,
-                        <a href="#">Michael Douglas</a>, <a href="#">Morgan Freeman</a>,
+                        <strong>Actors: </strong><a href="#"><span th:text="${m.getActors()}"></span></a>
+                        <!--<a href="#">Michael Douglas</a>, <a href="#">Morgan Freeman</a>,
                         <a href="#">Kevin Kline</a>, <a href="#">Mary Steenburgen</a>,
                         <a href="#">Jerry Ferrara</a>, <a href="#">Romany Malco</a>
-                        <a href="#">...</a>
+                        <a href="#">...</a>-->
                     </p>
                     <p class="movie__option">
                         <strong>Age restriction: </strong><a href="#">13</a>
                     </p>
 
-                    <div class="movie__btns">
-                        <a href="#" class="btn btn-md btn--warning">预订此电影</a>
-                        <a href="#" class="watchlist">添加到播放列表</a>
+                    <div class="movie__btns" th:if="${session.user != null}">
+                        <input type="text" id="movieId" th:value="${m.getId()}" hidden>
+                        <input type="text" id="userId" th:value="${session.user.getId()}" hidden>
+                        <a href="#" class="btn btn-md btn--warning" th:if="${m.status==1}">预订此电影</a>
+                        <a th:onclick="|add(${m.getId()})|" class="watchlist">添加到播放列表</a>
                     </div>
 
                     <div class="preview-footer">
@@ -176,8 +183,8 @@
 
             <div class="coloum-wrapper">
                 <div class="pagination paginatioon--full">
-                    <a th:href="@{/movies(page=${movieList.pageNum}-1)}" class="pagination__prev">prev</a>
-                    <a th:href="@{/movies(page=${movieList.pageNum}+1)}" class="pagination__next">next</a>
+                    <a th:if="${movieList.hasPreviousPage}" th:href="@{/movies(page=${movieList.pageNum}-1)}" class="pagination__prev">prev</a>
+                    <a th:if="${movieList.hasNextPage}" th:href="@{/movies(page=${movieList.pageNum}+1)}" class="pagination__next">next</a>
                 </div>
             </div>
         </div>

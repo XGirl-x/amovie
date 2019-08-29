@@ -2,6 +2,7 @@ package com.xiao.amovie.controller;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.xiao.amovie.entity.Movie;
 import com.xiao.amovie.entity.Review;
 import com.xiao.amovie.entity.Scene;
@@ -9,10 +10,7 @@ import com.xiao.amovie.exception.CommonException;
 import com.xiao.amovie.exception.NotFoundException;
 import com.xiao.amovie.from.MovieForm;
 import com.xiao.amovie.from.ReviewForm;
-import com.xiao.amovie.repository.CategoryRepository;
-import com.xiao.amovie.repository.MovieRepository;
-import com.xiao.amovie.repository.ReviewRepository;
-import com.xiao.amovie.repository.SceneRepository;
+import com.xiao.amovie.repository.*;
 import com.xiao.amovie.service.MovieService;
 import com.xiao.amovie.service.ReviewService;
 import com.xiao.amovie.utils.ReturnVOUtil;
@@ -44,13 +42,20 @@ public class MovieController {
     private MovieService movieService;
 
     @Autowired
+    private ReviewRepository reviewRepository;
+
+    @Autowired
     private ReviewService reviewService;
+
+    @Autowired
+    private WatchListRepository watchListRepository;
+
 
     @GetMapping
     public String getAll(@RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
                          @RequestParam(value = "size", required = false, defaultValue = "3") Integer size,
                          Model model) {
-        Page<Movie> movieList = PageHelper.startPage(page, size).doSelectPage(() -> repository.getAll());
+        PageInfo<Movie> movieList = PageHelper.startPage(page, size).doSelectPageInfo(() -> repository.getAll());
         model.addAttribute("movieList",movieList);
         return "movie-list";
     }
@@ -61,10 +66,28 @@ public class MovieController {
         if (movie != null) {
             List<Scene> sceneList = sceneRepository.findByMovieName(movie.getName());
             List<ReviewForm> reviewFormList = reviewService.findByMovieId(id);
+            int count = reviewRepository.getCount(id);
             model.addAttribute("movie",movie);
             model.addAttribute("sceneList",sceneList);
             model.addAttribute("reviewList",reviewFormList);
+            model.addAttribute("count",count);
             return "movie";
+        }
+        throw new NotFoundException("资源未找到");
+    }
+
+    @GetMapping("/watch/{id}")
+    public String getDetailById(@PathVariable("id") Integer id, Model model) {
+        Movie movie = repository.findById(id);
+        if (movie != null) {
+            List<Scene> sceneList = sceneRepository.findByMovieName(movie.getName());
+            List<ReviewForm> reviewFormList = reviewService.findByMovieId(id);
+            int count = reviewRepository.getCount(id);
+            model.addAttribute("movie",movie);
+            model.addAttribute("sceneList",sceneList);
+            model.addAttribute("reviewList",reviewFormList);
+            model.addAttribute("count",count);
+            return "moviedetail";
         }
         throw new NotFoundException("资源未找到");
     }

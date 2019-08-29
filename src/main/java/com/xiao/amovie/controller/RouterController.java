@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class RouterController {
 
-    @RequestMapping("/index")
+    /*@RequestMapping("/index")
     public String index() {
         return "index";
     }
@@ -44,12 +44,12 @@ public class RouterController {
         return "book-final";
     }
 
-    @RequestMapping("/movie-list.html")
+   *//* @RequestMapping("/movie-list.html")
     public String movieList() {
         return "movies";
-    }
+    }*//*
 
-    @RequestMapping("/rate.html")
+    @RequestMapping("/rate")
     public String rate() {
         return "rate";
     }
@@ -72,6 +72,12 @@ public class RouterController {
     @RequestMapping("/movie")
     public String movie() {
         return "movie";
+    }*/
+
+    @RequestMapping("/rate")
+    public String rate() {
+        return "rate";
     }
+
 
 }
