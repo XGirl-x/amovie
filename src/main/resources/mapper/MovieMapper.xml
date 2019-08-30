@@ -36,6 +36,51 @@
         </collection>
     </resultMap>
 
+    <resultMap id="findMovieAndCategories" type="com.xiao.amovie.from.MovieScore">
+        <id property="id" column="id" javaType="int"></id>
+        <result property="name" column="name"></result>
+        <result property="duration" column="duration"></result>
+        <result property="directors" column="directors"></result>
+        <result property="actors" column="actors"></result>
+        <result property="releaseDate" column="release_date"></result>
+        <result property="status" column="status"></result>
+        <result property="plot" column="plot"></result>
+        <result property="poster" column="poster"></result>
+        <result property="country" column="country"></result>
+        <result property="avg" column="avg"></result>
+        <result property="num" column="num"></result>
+        <result property="rownum" column="rownum"></result>
+        <collection property="categories" ofType="Category" column="id" select="selectCategoryofMovie">
+            <id property="id" column="category_id"></id>
+            <result property="name" column="category_name"></result>
+        </collection>
+    </resultMap>
+
+    <select id="findMovieScore"  resultMap="findMovieAndCategories">
+        SELECT `movie`.*,`sc`.`avg`,`sc`.`num` FROM `movie`
+        LEFT JOIN (
+	        SELECT `movie_id`,AVG(`score`) AS `avg`,COUNT(`user_id`) AS `num`
+            FROM `scores` GROUP BY `movie_id`) AS `sc` ON `movie`.id=`sc`.`movie_id`
+    </select>
+
+    <select id="findByMovieId" parameterType="int" resultMap="findMovieAndCategories">
+        SELECT `movie`.*,`sc`.`avg`,`sc`.`num` FROM `movie`
+        LEFT JOIN (
+	        SELECT `movie_id`,AVG(`score`) AS `avg`,COUNT(`user_id`) AS `num`
+            FROM `scores` GROUP BY `movie_id`) AS `sc` ON `movie`.id=`sc`.`movie_id`
+            where id=#{id}
+    </select>
+
+    <select id="findMovieScoreSort" resultMap="findMovieAndCategories">
+         SELECT `moviescore`.* ,(@i:=@i+1) AS rownum FROM (
+         SELECT `movie`.*,`sc`.`avg`,`sc`.`num`FROM `movie`
+        LEFT JOIN (
+	        SELECT `movie_id`,AVG(`score`) AS `avg`,COUNT(`user_id`) AS `num`
+            FROM `scores` GROUP BY `movie_id`) AS `sc` ON `movie`.id=`sc`.`movie_id`
+            order BY `sc`.`avg` DESC) AS `moviescore`,(SELECT @i:=0) AS it
+    </select>
+
+
     <select id="findById" resultMap="findMovieAndCategory" parameterType="int">
         select * from movie where id=#{id}
     </select>
@@ -52,19 +97,19 @@
         select * from movie where status=#{status}
     </select>
 
-    <select id="findByName" resultMap="findMovieAndCategory" parameterType="String">
+    <select id="findByName" resultMap="findMovieAndCategories" parameterType="String">
         select * from movie where name like concat('%', #{name} ,'%')
     </select>
 
-    <select id="findByDirectors" resultMap="findMovieAndCategory" parameterType="String">
+    <select id="findByDirectors" resultMap="findMovieAndCategories" parameterType="String">
         select * from movie where directors like concat('%', #{directors} ,'%')
     </select>
 
-    <select id="findByActors" resultMap="findMovieAndCategory" parameterType="String">
+    <select id="findByActors" resultMap="findMovieAndCategories" parameterType="String">
         select * from movie where actors like concat('%', #{actors} ,'%')
     </select>
 
-    <select id="findByCountry" resultMap="findMovieAndCategory" parameterType="String">
+    <select id="findByCountry" resultMap="findMovieAndCategories" parameterType="String">
         select * from movie where country like concat('%', #{country} ,'%')
     </select>
 

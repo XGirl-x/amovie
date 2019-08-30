@@ -2,6 +2,7 @@ package com.xiao.amovie.repository;
 
 import com.xiao.amovie.entity.Movie;
 import com.xiao.amovie.enums.Status;
+import com.xiao.amovie.from.MovieScore;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -65,26 +66,26 @@ public class MovieRepositoryTest {
 
     @Test
     public void findByName() {
-        List<Movie> movieList = repository.findByName("速度与激情");
+        List<MovieScore> movieList = repository.findByName("速度与激情");
         System.out.println(movieList);
         Assert.assertNotNull(movieList);
     }
 
     @Test
     public void findByDirectors() {
-        List<Movie> movieList = repository.findByDirectors("饺子");
+        List<MovieScore> movieList = repository.findByDirectors("饺子");
         System.out.println(movieList);
     }
 
     @Test
     public void findByActors() {
-        List<Movie> movieList = repository.findByActors("范");
+        List<MovieScore> movieList = repository.findByActors("范");
         System.out.println(movieList);
     }
 
     @Test
     public void findByCountry() {
-        List<Movie> movieList = repository.findByCountry("中国");
+        List<MovieScore> movieList = repository.findByCountry("中国");
         System.out.println(movieList);
     }
 
@@ -92,6 +93,18 @@ public class MovieRepositoryTest {
     public void findByCategoryId() {
         List<Movie> movieList = repository.findByCategoryId(1);
         System.out.println(movieList);
+    }
+
+    @Test
+    public void findMovieScore() {
+        List<MovieScore> movieScore = repository.findMovieScore();
+        System.out.println(movieScore);
+    }
+
+    @Test
+    public void findByMovieId() {
+        MovieScore movieScore = repository.findByMovieId(2);
+        System.out.println(movieScore);
     }
 
 }

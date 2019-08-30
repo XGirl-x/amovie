@@ -9,6 +9,7 @@ import com.xiao.amovie.entity.Scene;
 import com.xiao.amovie.exception.CommonException;
 import com.xiao.amovie.exception.NotFoundException;
 import com.xiao.amovie.from.MovieForm;
+import com.xiao.amovie.from.MovieScore;
 import com.xiao.amovie.from.ReviewForm;
 import com.xiao.amovie.repository.*;
 import com.xiao.amovie.service.MovieService;
@@ -47,27 +48,23 @@ public class MovieController {
     @Autowired
     private ReviewService reviewService;
 
-    @Autowired
-    private WatchListRepository watchListRepository;
-
-
     @GetMapping
     public String getAll(@RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
                          @RequestParam(value = "size", required = false, defaultValue = "3") Integer size,
                          Model model) {
-        PageInfo<Movie> movieList = PageHelper.startPage(page, size).doSelectPageInfo(() -> repository.getAll());
+        PageInfo<MovieScore> movieList = PageHelper.startPage(page, size).doSelectPageInfo(() -> movieService.findMovieScoreSort());
         model.addAttribute("movieList",movieList);
         return "movie-list";
     }
 
     @GetMapping("/{id}")
     public String getById(@PathVariable("id") Integer id, Model model) {
-        Movie movie = repository.findById(id);
-        if (movie != null) {
-            List<Scene> sceneList = sceneRepository.findByMovieName(movie.getName());
+        MovieScore movieScore = movieService.findByMovieId(id);
+        if (movieScore != null) {
+            List<Scene> sceneList = sceneRepository.findByMovieName(movieScore.getName());
             List<ReviewForm> reviewFormList = reviewService.findByMovieId(id);
             int count = reviewRepository.getCount(id);
-            model.addAttribute("movie",movie);
+            model.addAttribute("movie",movieScore);
             model.addAttribute("sceneList",sceneList);
             model.addAttribute("reviewList",reviewFormList);
             model.addAttribute("count",count);

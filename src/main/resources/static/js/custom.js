@@ -743,6 +743,18 @@ function init_MovieList() {
 
     });
 
+    //查询
+    $(".search__button").click(function (e) {
+        e.preventDefault();
+
+        var searchContent = $('.search__field').val();
+        var selected = $('#search-sort').val();
+        var data = {
+            searchContent: searchContent
+        };
+        window.location.href = '/search/' + selected + '/' +searchContent;
+    });
+
     //3. Rating scrore init
     //Rating star
     $('.score').raty({
@@ -910,7 +922,35 @@ function init_Rates() {
 
     //After rate callback
     $('.score').click(function () {
-        $(this).html('<span class="rates__done">感谢您的评分<span>')
+        var starvalue = $('#score').raty('score');
+        var movieId = $('#moviesId').val();
+        var data = {
+            movieId: movieId,
+            score: starvalue
+        };
+        $.ajax({
+            url: '/rate',
+            method: 'POST',
+            contentType: 'application/json;charset=utf-8',
+            dataType: 'json',
+            data: JSON.stringify(data),
+            success:function (result) {
+                if (result.msg == "成功") {
+                    alert("感谢您的评分！");
+                    /*$(this).html('<span class="rates__done">感谢您的评分<span>')*/
+                }
+                else if (result.msg == "请登录") {
+                    alert(result.msg);
+                }
+                else if (result.msg == "您已经评分无需再次评分") {
+                    alert(result.msg);
+                }
+                else {
+                    alert("评分失败！");
+                }
+            }
+        })
+
     })
 }
 

@@ -16,12 +16,13 @@
                 <div class="movie__info">
                     <div class="col-sm-4 col-md-3 movie-mobile">
                         <div class="movie__images">
-                            <span class="movie__rating">5.0</span>
+                            <span class="movie__rating" th:text="${movie.avg}"></span>
                             <img alt="" th:src="@{${movie.poster}}"/>
                         </div>
                         <div class="movie__rate">
                             Your vote:
                             <div id="score" class="score"></div>
+                            <input type="text" th:value="${movie.id}" id="moviesId" hidden>
                         </div>
                     </div>
 
@@ -207,6 +208,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         init_MoviePage();
+        init_Rates();
     });
 </script>
 </body>

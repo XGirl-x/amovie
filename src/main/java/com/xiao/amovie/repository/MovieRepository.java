@@ -1,6 +1,8 @@
 package com.xiao.amovie.repository;
 
+import com.xiao.amovie.entity.Category;
 import com.xiao.amovie.entity.Movie;
+import com.xiao.amovie.from.MovieScore;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
@@ -20,7 +22,6 @@ public interface MovieRepository {
 
     int update(Movie movie);
 
-
     Movie findById(Integer id);
 
 
@@ -32,7 +33,7 @@ public interface MovieRepository {
     /**
      * 通过模糊查询
      */
-    List<Movie> findByName(String name);
+    List<MovieScore> findByName(String name);
 
     /**
      * 通过导演查询
@@ -40,7 +41,7 @@ public interface MovieRepository {
      * @param directors
      * @return
      */
-    List<Movie> findByDirectors(String directors);
+    List<MovieScore> findByDirectors(String directors);
 
     /**
      * 通过演员查询
@@ -48,7 +49,7 @@ public interface MovieRepository {
      * @param actors
      * @return
      */
-    List<Movie> findByActors(String actors);
+    List<MovieScore> findByActors(String actors);
 
     /**
      * 通过国家查询
@@ -56,8 +57,38 @@ public interface MovieRepository {
      * @param country
      * @return
      */
-    List<Movie> findByCountry(String country);
+    List<MovieScore> findByCountry(String country);
 
+    /**
+     * 通过类别
+     * @param categoryId
+     * @return
+     */
     List<Movie> findByCategoryId(Integer categoryId);
 
+    /**
+     * 查询评分电影
+     * @return
+     */
+    List<MovieScore> findMovieScore();
+
+    /**
+     * 排行榜
+     * @return
+     */
+    List<MovieScore> findMovieScoreSort();
+
+    /**
+     * 通过movie id查询他的分类
+     * @param movieId id
+     * @return list
+     */
+    List<Category> selectCategoryofMovie(int movieId);
+
+    /**
+     * 通过movieId查询评分电影
+     * @param id
+     * @return
+     */
+    MovieScore findByMovieId(Integer id);
 }

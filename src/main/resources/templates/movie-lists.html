@@ -109,7 +109,7 @@
 
             <!-- Movie preview item -->
 
-            <div th:each="m:${movieList.list}">
+            <div th:each="m:${movieLists}">
             <div class="movie movie--preview movie--full release">
                 <div class="col-sm-3 col-md-2 col-lg-2">
                     <div class="movie__images">
@@ -181,12 +181,12 @@
             </div>
             <!-- end movie preview item -->
 
-            <div class="coloum-wrapper">
-                <div class="pagination paginatioon--full">
-                    <a th:if="${movieList.hasPreviousPage}" th:href="@{/movies(page=${movieList.pageNum}-1)}" class="pagination__prev">prev</a>
-                    <a th:if="${movieList.hasNextPage}" th:href="@{/movies(page=${movieList.pageNum}+1)}" class="pagination__next">next</a>
+            <!--<div class="coloum-wrapper">
+                <div class="pagination paginatioon&#45;&#45;full">
+                    <a th:if="${movieLists.hasPreviousPage}" th:href="@{/search(page=${movieLists.pageNum}-1)}" class="pagination__prev">prev</a>
+                    <a th:if="${movieLists.hasNextPage}" th:href="@{/search(page=${movieLists.pageNum}+1)}" class="pagination__next">next</a>
                 </div>
-            </div>
+            </div>-->
         </div>
     </section>
 
@@ -205,7 +205,7 @@
         init_MovieList();
     });
 </script>
-<script type="text/javascript" th:each="m:${movieList.list}">
+<script type="text/javascript" th:each="m:${movieLists}">
     $(document).ready(function () {
         "use strict";
         $('#score[[${m.id}]]').raty({

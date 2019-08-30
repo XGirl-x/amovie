@@ -17,12 +17,12 @@ public interface WatchListRepository {
     @Select("select * from watchlist")
     List<WatchList> getAll();
 
-    @Select("select * from watchlist where movie_id=#{movieId}")
-    WatchList findByMovieId(Integer movieId);
+    @Select("select * from watchlist where movie_id=#{movieId} and user_id=#{userId}")
+    WatchList findByMovieIdAndUserId(Integer movieId,Integer userId);
 
     @Select("select * from watchlist where user_id=#{userId}")
     List<WatchList> findByUserId(Integer userId);
 
-    @Delete("delete from watchlist where movie_id=#{movieId}")
-    int delete(Integer movieId);
+    @Delete("delete from watchlist where movie_id=#{movieId} and user_id=#{userId}")
+    int delete(Integer movieId,Integer userId);
 }

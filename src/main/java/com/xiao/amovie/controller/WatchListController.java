@@ -49,11 +49,11 @@ public class WatchListController {
     @PostMapping
     @ResponseBody
     public ResultForm insertWatch(@RequestBody WatchList watchList,HttpSession session) {
-        WatchList movieId = repository.findByMovieId(watchList.getMovieId());
+        User user = (User) session.getAttribute("user");
+        WatchList movieId = repository.findByMovieIdAndUserId(watchList.getMovieId(),user.getId());
         if (movieId != null){
             return ResultVOUtil.error("该电影已被添加至播放列表无需再次添加");
         }
-        User user = (User) session.getAttribute("user");
         watchList.setUserId(user.getId());
         watchList.setCreateTime(new Date());
         int i = repository.insert(watchList);
@@ -65,8 +65,9 @@ public class WatchListController {
 
     @DeleteMapping
     @ResponseBody
-    public ResultForm delete (@RequestBody WatchList watchList) {
-        int i = repository.delete(watchList.getMovieId());
+    public ResultForm delete (@RequestBody WatchList watchList,HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        int i = repository.delete(watchList.getMovieId(),user.getId());
         if (i > 0) {
             return ResultVOUtil.success();
         }
