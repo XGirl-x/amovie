@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
  * @author xiao
  */
 @Controller
-@CrossOrigin
 @RequestMapping("/news")
 public class NewsController {
 
@@ -28,20 +27,18 @@ public class NewsController {
 
     @GetMapping
     public String getNews(@RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
-                                  @RequestParam(value = "size", required = false, defaultValue = "20") Integer size,
-                                  Model model) {
+                          @RequestParam(value = "size", required = false, defaultValue = "20") Integer size,
+                          Model model) {
         PageInfo<News> newsList = PageHelper.startPage(page, size).doSelectPageInfo(() -> repository.getAll());
         model.addAttribute("newsList",newsList);
-        return "news";
+        return "news-list";
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity getById(@PathVariable(value = "id", required = true) Integer id) {
+    public String getById(@PathVariable(value = "id", required = true) Integer id, Model model) {
         News news = repository.findById(id);
-        if (news != null) {
-            return new ResponseEntity(news, HttpStatus.OK);
-        }
-        throw new NotFoundException("资源未找到");
+        model.addAttribute("news",news);
+        return "news";
     }
 
     @PostMapping
