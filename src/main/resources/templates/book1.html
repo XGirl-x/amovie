@@ -11,8 +11,8 @@
     <section class="container">
         <div class="order-container">
             <div class="order">
-                <img class="order__images" alt='' src="images/tickets.png">
-                <p class="order__title">预订<br><span class="order__descript">祝您观影愉快！</span></p>
+                <img class="order__images" alt='' th:src="${movie.poster}" style="width: 190px; height: 281px"> <p></p>
+                <p class="order__title">预订&nbsp;&nbsp;&nbsp;<span th:text="${movie.name}" style="color: red"></span><br><span class="order__descript">祝您观影愉快！</span></p>
             </div>
         </div>
         <div class="order-step-area">
@@ -25,18 +25,14 @@
             <div class="time-select time-select--wide">
                 <div class="time-select__group">
                     <div class="col-sm-3">
-                        <p class="time-select__place">Curzon</p>
+                        <p class="time-select__place">场次</p>
                     </div>
-                    <ul class="col-sm-6 items-wrap">
-                        <li class="time-select__item" data-time='09:00'>09:00</li>
-                        <li class="time-select__item" data-time='11:00'>11:00</li>
-                        <li class="time-select__item" data-time='13:00'>13:00</li>
-                        <li class="time-select__item" data-time='15:00'>15:00</li>
-                        <li class="time-select__item" data-time='17:00'>17:00</li>
-                        <li class="time-select__item" data-time='19:00'>19:00</li>
-                        <li class="time-select__item" data-time='21:00'>21:00</li>
-                        <li class="time-select__item" data-time='23:00'>23:00</li>
-                        <li class="time-select__item" data-time='01:00'>01:00</li>
+                    <ul class="col-sm-6 items-wrap" th:if="${!#lists.isEmpty(sceneList)}">
+                        <span th:each="scene:${sceneList}">
+                        <li class="time-select__item" th:data-time='${scene.getShowtime()}' th:text="${scene.getShowtime()}"
+                            th:data-name="${movie.name}" th:data-sceneId="${scene.id}" th:data-movieId="${movie.id}" th:data-price="${scene.price}">
+                        </li>
+                        </span>
                     </ul>
                 </div>
             </div>
@@ -46,8 +42,11 @@
 
     <div class="clearfix"></div>
 
-    <form id='film-and-time' class="booking-form" method='get' action='book2.html'>
+    <form id='film-and-time' class="booking-form" method='get' action="/order/book2">
         <input type='text' name='choosen-movie' class="choosen-movie">
+
+        <input type="text" name="choosen-movieId" class="choosen-movieId">
+        <input type="text" name="choosen-scene" class="choosen-scene">
 
         <input type='text' name='choosen-city' class="choosen-city">
         <input type='text' name='choosen-date' class="choosen-date">
@@ -55,13 +54,15 @@
         <input type='text' name='choosen-cinema' class="choosen-cinema">
         <input type='text' name='choosen-time' class="choosen-time">
 
+        <input type="text" name="choosen-price" class="choosen-price">
+
 
         <div class="booking-pagination">
-            <a href="#" class="booking-pagination__prev hide--arrow">
+            <a th:href="'/order/'+${movie.id}" class="booking-pagination__prev hide--arrow">
                 <span class="arrow__text arrow--prev"></span>
                 <span class="arrow__info"></span>
             </a>
-            <a href="book2.html" class="booking-pagination__next">
+            <a href="#" class="booking-pagination__next">
                 <span class="arrow__text arrow--next">下一步</span>
                 <span class="arrow__info">选择座位</span>
             </a>
@@ -84,6 +85,5 @@
         init_BookingOne();
     });
 </script>
-
 </body>
 </html>

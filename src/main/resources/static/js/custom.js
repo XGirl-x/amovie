@@ -165,17 +165,19 @@ function init_BookingOne() {
         $(this).addClass('active');
     });
 
-    //2. Init vars for order data
+    //2. 将数据放在隐藏域form中
     // var for booking;
     var movie = $('.choosen-movie'),
+        movieId = $('.choosen-movieId'),
+        scene = $('.choosen-scene'),
         city = $('.choosen-city'),
         date = $('.choosen-date'),
-        cinema = $('.choosen-cinema'),
-        time = $('.choosen-time');
+        time = $('.choosen-time'),
+        price = $('.choosen-price');
 
     //6. Choose variant proccess
     //choose film
-    $('.film-images').click(function (e) {
+    /*$('.film-images').click(function (e) {
         //visual iteractive for choose
         $('.film-images').removeClass('film--choosed');
         $(this).addClass('film--choosed');
@@ -185,40 +187,60 @@ function init_BookingOne() {
         $('.choose-indector--film').find('.choosen-area').text(chooseFilm);
 
         //data element set
-        movie.val(chooseFilm);
+        //movie.val(chooseFilm);
 
-    });
+    });*/
 
-    //choose time
+    //选择时间场次
     $('.time-select__item').click(function () {
-        //visual iteractive for choose
+        //视觉效果供选择
         $('.time-select__item').removeClass('active');
         $(this).addClass('active');
 
-        //data element init
+        //data element init  数据元素初始化
         var chooseTime = $(this).attr('data-time');
-        $('.choose-indector--time').find('.choosen-area').text(chooseTime);
+        var chooseMovie = $(this).attr('data-name');
+        var chooseScene = $(this).attr(('data-sceneId'));
+        var choosenMovieId = $(this).attr(('data-movieId'));
+        var choosenPrice = $(this).attr(('data-price'));
+
+        console.log(chooseTime);
+        console.log(chooseMovie);
+        console.log(chooseScene);
+        console.log(choosenMovieId);
+        console.log(choosenPrice);
+        //$('.choose-indector--time').find('.choosen-area').text(chooseTime);
 
         //data element init
-        var chooseCinema = $(this).parent().parent().find('.time-select__place').text();
+        //var chooseCinema = $(this).parent().parent().find('.time-select__place').text();
 
         //data element set
         time.val(chooseTime);
-        cinema.val(chooseCinema);
+        //cinema.val(chooseCinema);
+        movie.val(chooseMovie);
+        movieId.val(choosenMovieId);
+        scene.val(chooseScene);
+        price.val(choosenPrice);
+
+    });
+
+    //下一步触发发送
+    $('.booking-pagination__next').click(function () {
+        $('.booking-form').submit();
     });
 
     // choose (change) city and date for film
 
     //data element init (default)
-    var chooseCity = $('.select .sbSelector').text();
+    /*var chooseCity = $('.select .sbSelector').text();
     var chooseDate = $('.datepicker__input').val();
 
     //data element set (default)
     city.val(chooseCity);
-    date.val(chooseDate);
+    date.val(chooseDate);*/
 
 
-    $('.select .sbOptions').click(function () {
+    /*$('.select .sbOptions').click(function () {
         //data element change
         var chooseCity = $('.select .sbSelector').text();
         //data element set change
@@ -250,7 +272,7 @@ function init_BookingOne() {
         e.preventDefault();
         $(this).toggleClass('hide-content');
         $('.time-select').slideToggle(400);
-    })
+    })*/
 }
 
 function init_BookingTwo() {

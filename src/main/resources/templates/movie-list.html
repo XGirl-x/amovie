@@ -164,7 +164,7 @@
                     <div class="movie__btns" th:if="${session.user != null}">
                         <input type="text" id="movieId" th:value="${m.getId()}" hidden>
                         <input type="text" id="userId" th:value="${session.user.getId()}" hidden>
-                        <a href="#" class="btn btn-md btn--warning" th:if="${m.status==1}">预订此电影</a>
+                        <a th:href="'/order/'+${m.id}" class="btn btn-md btn--warning" th:if="${m.status==1}">预订此电影</a>
                         <a th:onclick="|add(${m.getId()})|" class="watchlist">添加到播放列表</a>
                     </div>
 

@@ -27,9 +27,6 @@ public interface MovieRepository {
 
     List<Movie> getAll();
 
-
-    List<Movie> findByStatus(Integer status);
-
     /**
      * 通过模糊查询
      */
@@ -91,4 +88,6 @@ public interface MovieRepository {
      * @return
      */
     MovieScore findByMovieId(Integer id);
+
+    List<MovieScore> findByStatus(Integer status);
 }

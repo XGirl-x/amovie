@@ -156,5 +156,19 @@ public class MovieServiceImpl implements MovieService {
         return movieScoreList;
     }
 
+    @Override
+    public List<MovieScore> findByStatus(Integer status) {
+        List<MovieScore> movieScoreList = repository.findByStatus(status);
+        for (MovieScore movieScore : movieScoreList) {
+            if (movieScore.getNum() == null) {
+                movieScore.setNum(0);
+            }
+            if (movieScore.getAvg() == null) {
+                movieScore.setAvg(0.0);
+            }
+        }
+        return movieScoreList;
+    }
+
 
 }

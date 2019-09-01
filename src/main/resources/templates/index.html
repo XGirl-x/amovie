@@ -16,106 +16,30 @@
             <div class="col-sm-10 col-sm-offset-1 movie-best__rating">
                 今日最佳影片
             </div>
+
             <div class="col-sm-12 change--col">
                 <!-- 一项 -->
+                <div th:each="m:${movieScore.list}">
                 <div class="movie-beta__item ">
                     <!-- 海报 -->
-                    <img alt="" src="http://placehold.it/380x600"/>
+                    <a th:href="'/movies/'+${m.getId()}"><img alt="" th:src="${m.poster}" width="190" height="281"/></a>
                     <!-- 评分 -->
-                    <span class="best-rate">5.0</span>
+                    <span class="best-rate" th:text="${#numbers.formatDecimal(m.avg,1,1)}"></span>
 
                     <ul class="movie-beta__info">
-                        <li><span class="best-voted">今天 71 人为此影片评分</span></li>
+                        <li><span class="best-voted">今天 <span th:text="${m.num}"></span> 人为此影片评分</span></li>
                         <li>
-                            <p class="movie__time">169 分钟</p>
-                            <p>Adventure | Drama | Fantasy</p>
+                            <p class="movie__time"><span th:text="${m.duration}"></span> 分钟</p>
+                            <p th:each="category:${m.categories}"><!--Adventure | Drama | Fantasy-->
+                                <span th:text="${category.name}"></span>&nbsp;&nbsp;
+                            </p>
                             <p>38 评论</p>
                         </li>
                         <li class="last-block">
-                            <a href="movie-page-left.html" class="slide__link">更多</a>
+                            <a th:href="'/movies/'+${m.getId()}" class="slide__link">更多</a>
                         </li>
                     </ul>
                 </div>
-                <!-- 一项结束 -->
-                <div class="movie-beta__item second--item">
-                    <img alt="" src="http://placehold.it/380x600"/>
-                    <span class="best-rate">5.0</span>
-
-                    <ul class="movie-beta__info">
-                        <li><span class="best-voted">71 people voted today</span></li>
-                        <li>
-                            <p class="movie__time">169 min</p>
-                            <p>Adventure | Drama | Fantasy</p>
-                            <p>38 comments</p>
-                        </li>
-                        <li class="last-block">
-                            <a href="movie-page-left.html" class="slide__link">more</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="movie-beta__item third--item">
-                    <img alt="" src="http://placehold.it/380x600"/>
-                    <span class="best-rate">5.0</span>
-
-                    <ul class="movie-beta__info">
-                        <li><span class="best-voted">71 people voted today</span></li>
-                        <li>
-                            <p class="movie__time">169 min</p>
-                            <p>Adventure | Drama | Fantasy</p>
-                            <p>38 comments</p>
-                        </li>
-                        <li class="last-block">
-                            <a href="movie-page-left.html" class="slide__link">more</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="movie-beta__item hidden-xs">
-                    <img alt="" src="http://placehold.it/380x600"/>
-                    <span class="best-rate">5.0</span>
-
-                    <ul class="movie-beta__info">
-                        <li><span class="best-voted">71 people voted today</span></li>
-                        <li>
-                            <p class="movie__time">169 min</p>
-                            <p>Adventure | Drama | Fantasy</p>
-                            <p>38 comments</p>
-                        </li>
-                        <li class="last-block">
-                            <a href="movie-page-left.html" class="slide__link">more</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="movie-beta__item hidden-xs hidden-sm">
-                    <img alt="" src="http://placehold.it/380x600"/>
-                    <span class="best-rate">5.0</span>
-
-                    <ul class="movie-beta__info">
-                        <li><span class="best-voted">71 people voted today</span></li>
-                        <li>
-                            <p class="movie__time">169 min</p>
-                            <p>Adventure | Drama | Fantasy</p>
-                            <p>38 comments</p>
-                        </li>
-                        <li class="last-block">
-                            <a href="movie-page-left.html" class="slide__link">more</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="movie-beta__item hidden-xs hidden-sm">
-                    <img alt="" src="http://placehold.it/380x600"/>
-                    <span class="best-rate">5.0</span>
-
-                    <ul class="movie-beta__info">
-                        <li><span class="best-voted">71 people voted today</span></li>
-                        <li>
-                            <p class="movie__time">169 min</p>
-                            <p>Adventure | Drama | Fantasy</p>
-                            <p>38 comments</p>
-                        </li>
-                        <li class="last-block">
-                            <a href="movie-page-left.html" class="slide__link">more</a>
-                        </li>
-                    </ul>
                 </div>
             </div>
         </div>
@@ -127,36 +51,37 @@
             <div class="row">
                 <div class="col-sm-8 col-md-9">
                     <!-- Movie variant with time -->
-                    <div class="movie movie--test movie--test--dark movie--test--left">
+                    <div class="movie movie--test movie--test--dark movie--test--left" th:each="movie:${movieScoreList.list}">
                         <div class="movie__images">
-                            <a href="movie-page-left.html" class="movie-beta__link">
-                                <img alt="" src="http://placehold.it/424x424"/>
+                            <a th:href="'/movies/'+${movie.getId()}" class="movie-beta__link">
+                                <img alt="" th:src="${movie.poster}" width="212" height="313"/>
                             </a>
                         </div>
 
                         <div class="movie__info">
-                            <a href="movie-page-left.html" class="movie__title"
-                            >Gravity (2013)
+                            <a th:href="'/movies/'+${movie.getId()}" class="movie__title"
+                            ><span th:text="${movie.name}"></span>
                             </a>
 
-                            <p class="movie__time">91 min</p>
+                            <p class="movie__time"><span th:text="${movie.duration}"></span> 分钟</p>
 
                             <p class="movie__option">
-                                <a href="#">Sci-Fi</a> | <a href="#">Thriller</a> |
-                                <a href="#">Drama</a>
+                                <span th:each="categories:${movie.categories}">
+                                    <a href="#" th:text="${categories.name}"></a>&nbsp;&nbsp;
+                                </span>
                             </p>
 
                             <div class="movie__rate">
-                                <div class="score"></div>
-                                <span class="movie__rating">4.1</span>
+                                <div class="score" th:id="|score${movie.id}|"></div>
+                                <span class="movie__rating" th:text="${#numbers.formatDecimal(movie.avg,1,1)}"></span>
                             </div>
                         </div>
                     </div>
                     <!-- Movie variant with time -->
 
                     <!-- Movie variant with time -->
-                    <div
-                            class="movie movie--test movie--test--light movie--test--left"
+                    <!--<div
+                            class="movie movie&#45;&#45;test movie&#45;&#45;test&#45;&#45;light movie&#45;&#45;test&#45;&#45;left"
                     >
                         <div class="movie__images">
                             <a href="movie-page-left.html" class="movie-beta__link">
@@ -181,12 +106,12 @@
                                 <span class="movie__rating">5.0</span>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
                     <!-- Movie variant with time -->
 
                     <!-- Movie variant with time -->
-                    <div
-                            class="movie movie--test movie--test--light movie--test--right"
+                    <!--<div
+                            class="movie movie&#45;&#45;test movie&#45;&#45;test&#45;&#45;light movie&#45;&#45;test&#45;&#45;right"
                     >
                         <div class="movie__images">
                             <a href="movie-page-left.html" class="movie-beta__link">
@@ -211,12 +136,12 @@
                                 <span class="movie__rating">4.9</span>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
                     <!-- Movie variant with time -->
 
                     <!-- Movie variant with time -->
-                    <div
-                            class="movie movie--test movie--test--dark movie--test--right"
+                    <!--<div
+                            class="movie movie&#45;&#45;test movie&#45;&#45;test&#45;&#45;dark movie&#45;&#45;test&#45;&#45;right"
                     >
                         <div class="movie__images">
                             <a href="movie-page-left.html" class="movie-beta__link">
@@ -241,12 +166,12 @@
                                 <span class="movie__rating">5.0</span>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
                     <!-- Movie variant with time -->
 
                     <!-- Movie variant with time -->
-                    <div
-                            class="movie movie--test movie--test--dark movie--test--left"
+                    <!--<div
+                            class="movie movie&#45;&#45;test movie&#45;&#45;test&#45;&#45;dark movie&#45;&#45;test&#45;&#45;left"
                     >
                         <div class="movie__images">
                             <a href="movie-page-left.html" class="movie-beta__link">
@@ -272,11 +197,11 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Movie variant with time -->
+                    &lt;!&ndash; Movie variant with time &ndash;&gt;
 
-                    <!-- Movie variant with time -->
+                    &lt;!&ndash; Movie variant with time &ndash;&gt;
                     <div
-                            class="movie movie--test movie--test--light movie--test--left"
+                            class="movie movie&#45;&#45;test movie&#45;&#45;test&#45;&#45;light movie&#45;&#45;test&#45;&#45;left"
                     >
                         <div class="movie__images">
                             <a href="movie-page-left.html" class="movie-beta__link">
@@ -302,11 +227,11 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Movie variant with time -->
+                    &lt;!&ndash; Movie variant with time &ndash;&gt;
 
-                    <!-- Movie variant with time -->
+                    &lt;!&ndash; Movie variant with time &ndash;&gt;
                     <div
-                            class="movie movie--test movie--test--light movie--test--right"
+                            class="movie movie&#45;&#45;test movie&#45;&#45;test&#45;&#45;light movie&#45;&#45;test&#45;&#45;right"
                     >
                         <div class="movie__images">
                             <a href="movie-page-left.html" class="movie-beta__link">
@@ -331,11 +256,11 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Movie variant with time -->
+                    &lt;!&ndash; Movie variant with time &ndash;&gt;
 
-                    <!-- Movie variant with time -->
+                    &lt;!&ndash; Movie variant with time &ndash;&gt;
                     <div
-                            class="movie movie--test movie--test--dark movie--test--right"
+                            class="movie movie&#45;&#45;test movie&#45;&#45;test&#45;&#45;dark movie&#45;&#45;test&#45;&#45;right"
                     >
                         <div class="movie__images">
                             <a href="movie-page-left.html" class="movie-beta__link">
@@ -357,23 +282,25 @@
                                 <span class="movie__rating">5.0</span>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
                     <!-- Movie variant with time -->
                 </div>
 
                 <aside class="col-sm-4 col-md-3">
                     <div class="sitebar first-banner--left">
+                        <div th:each="moviePoster:${movieScorePoster.list}">
                         <div class="banner-wrap first-banner--left">
+                            <a th:href="'/movies/'+${moviePoster.id}"><img alt="banner" th:src="${moviePoster.poster}"/></a>
+                        </div>
+                        </div>
+
+                        <!--<div class="banner-wrap">
                             <img alt="banner" src="http://placehold.it/500x500"/>
                         </div>
 
-                        <div class="banner-wrap">
+                        <div class="banner-wrap banner-wrap&#45;&#45;last">
                             <img alt="banner" src="http://placehold.it/500x500"/>
-                        </div>
-
-                        <div class="banner-wrap banner-wrap--last">
-                            <img alt="banner" src="http://placehold.it/500x500"/>
-                        </div>
+                        </div>-->
                     </div>
                 </aside>
             </div>
@@ -383,7 +310,7 @@
         <div class="col-sm-12">
             <h2 class="page-heading">最新资讯</h2>
 
-            <div th:each="news:${newsList}">
+            <div th:each="news:${newsList.list}">
             <!-- start -->
             <div class="col-sm-4 similar-wrap col--remove">
                 <div class="post post--preview post--preview--wide">
@@ -483,7 +410,21 @@
 <script type="text/javascript">
     $(document).ready(function () {
         init_Home();
+        init_Rates();
     });
+</script>
+<script type="text/javascript" th:each="m:${movieScoreList.list}">
+    $(document).ready(function () {
+        "use strict";
+        $('#score[[${m.id}]]').raty({
+            width: 130,
+            score: [[${m.avg}]],
+            path: '/images/rate/',
+            starOff: 'star-off.svg',
+            starOn: 'star-on.svg',
+            readOnly: true
+        })
+    })
 </script>
 </body>
 </html>

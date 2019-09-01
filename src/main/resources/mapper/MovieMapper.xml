@@ -93,24 +93,54 @@
         select * from movie
     </select>
 
-    <select id="findByStatus" resultMap="findMovieAndCategory" parameterType="int">
-        select * from movie where status=#{status}
+    <select id="findByStatus" resultMap="findMovieAndCategories" parameterType="int">
+        SELECT `moviescore`.* ,(@i:=@i+1) AS rownum FROM (
+         SELECT `movie`.*,`sc`.`avg`,`sc`.`num`FROM `movie`
+        LEFT JOIN (
+	        SELECT `movie_id`,AVG(`score`) AS `avg`,COUNT(`user_id`) AS `num`
+            FROM `scores` GROUP BY `movie_id`) AS `sc` ON `movie`.id=`sc`.`movie_id`
+            order BY `sc`.`avg` DESC) AS `moviescore`,(SELECT @i:=0) AS it
+            where `moviescore`.status = #{status}
     </select>
 
     <select id="findByName" resultMap="findMovieAndCategories" parameterType="String">
-        select * from movie where name like concat('%', #{name} ,'%')
+        SELECT `moviescore`.* ,(@i:=@i+1) AS rownum FROM (
+         SELECT `movie`.*,`sc`.`avg`,`sc`.`num`FROM `movie`
+        LEFT JOIN (
+	        SELECT `movie_id`,AVG(`score`) AS `avg`,COUNT(`user_id`) AS `num`
+            FROM `scores` GROUP BY `movie_id`) AS `sc` ON `movie`.id=`sc`.`movie_id`
+            order BY `sc`.`avg` DESC) AS `moviescore`,(SELECT @i:=0) AS it
+            where `moviescore`.name like concat('%', #{name} ,'%')
     </select>
 
     <select id="findByDirectors" resultMap="findMovieAndCategories" parameterType="String">
-        select * from movie where directors like concat('%', #{directors} ,'%')
+        SELECT `moviescore`.* ,(@i:=@i+1) AS rownum FROM (
+         SELECT `movie`.*,`sc`.`avg`,`sc`.`num`FROM `movie`
+        LEFT JOIN (
+	        SELECT `movie_id`,AVG(`score`) AS `avg`,COUNT(`user_id`) AS `num`
+            FROM `scores` GROUP BY `movie_id`) AS `sc` ON `movie`.id=`sc`.`movie_id`
+            order BY `sc`.`avg` DESC) AS `moviescore`,(SELECT @i:=0) AS it
+            where `moviescore`.directors like concat('%', #{directors} ,'%')
     </select>
 
     <select id="findByActors" resultMap="findMovieAndCategories" parameterType="String">
-        select * from movie where actors like concat('%', #{actors} ,'%')
+        SELECT `moviescore`.* ,(@i:=@i+1) AS rownum FROM (
+         SELECT `movie`.*,`sc`.`avg`,`sc`.`num`FROM `movie`
+        LEFT JOIN (
+	        SELECT `movie_id`,AVG(`score`) AS `avg`,COUNT(`user_id`) AS `num`
+            FROM `scores` GROUP BY `movie_id`) AS `sc` ON `movie`.id=`sc`.`movie_id`
+            order BY `sc`.`avg` DESC) AS `moviescore`,(SELECT @i:=0) AS it
+            where `moviescore`.actors like concat('%', #{actors} ,'%')
     </select>
 
     <select id="findByCountry" resultMap="findMovieAndCategories" parameterType="String">
-        select * from movie where country like concat('%', #{country} ,'%')
+        SELECT `moviescore`.* ,(@i:=@i+1) AS rownum FROM (
+         SELECT `movie`.*,`sc`.`avg`,`sc`.`num`FROM `movie`
+        LEFT JOIN (
+	        SELECT `movie_id`,AVG(`score`) AS `avg`,COUNT(`user_id`) AS `num`
+            FROM `scores` GROUP BY `movie_id`) AS `sc` ON `movie`.id=`sc`.`movie_id`
+            order BY `sc`.`avg` DESC) AS `moviescore`,(SELECT @i:=0) AS it
+            where `moviescore`.country like concat('%', #{country} ,'%')
     </select>
 
     <select id="findByCategoryId" resultMap="findMovieAndCategory" parameterType="int">

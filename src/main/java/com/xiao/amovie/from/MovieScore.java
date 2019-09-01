@@ -52,10 +52,19 @@ public class MovieScore {
 
     private List<Category> categories;
 
+    /**
+     * 评分
+     */
     private Double avg;
 
+    /**
+     * 评分人数
+     */
     private Integer num;
 
+    /**
+     * 排序后序号
+     */
     private Integer rownum;
 
 }

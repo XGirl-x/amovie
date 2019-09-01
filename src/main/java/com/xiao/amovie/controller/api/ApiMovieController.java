@@ -8,6 +8,7 @@ import com.xiao.amovie.enums.Status;
 import com.xiao.amovie.exception.CommonException;
 import com.xiao.amovie.exception.NotFoundException;
 import com.xiao.amovie.from.MovieForm;
+import com.xiao.amovie.from.MovieScore;
 import com.xiao.amovie.repository.CategoryRepository;
 import com.xiao.amovie.repository.MovieRepository;
 import com.xiao.amovie.repository.SceneRepository;
@@ -110,7 +111,7 @@ public class ApiMovieController {
 
     @GetMapping("/released")
     public ResponseEntity findByStatus() {
-        List<Movie> movieList = repository.findByStatus(Status.RELEASED.getCode());
+        List<MovieScore> movieList = repository.findByStatus(Status.RELEASED.getCode());
         return new ResponseEntity(movieList,HttpStatus.OK);
     }
 }

@@ -74,8 +74,8 @@
                             </a>
 
                         <div class="movie__btns movie__btns--full" th:if="${session.user != null}">
-                            <a href="#" class="btn btn-md btn--warning" th:if="${movie.status==1}">预订此电影</a>
-                            <a th:onclick="|add(${movie.getId()})|" class="watchlist">添加到播放列表</a>
+                            <a th:href="'/order/'+${movie.id}" class="btn btn-md btn--warning" th:if="${movie.status==1}">预订此电影</a>
+                            <a th:onclick="|add(${movie.id})|" class="watchlist">添加到播放列表</a>
                         </div>
                     </div>
                 </div>

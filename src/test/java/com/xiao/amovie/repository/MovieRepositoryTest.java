@@ -59,7 +59,7 @@ public class MovieRepositoryTest {
 
     @Test
     public void findByStatus() {
-        List<Movie> movieList = repository.findByStatus(Status.RELEASED.getCode());
+        List<MovieScore> movieList = repository.findByStatus(Status.RELEASED.getCode());
         System.out.println(movieList);
         Assert.assertNotNull(movieList);
     }

@@ -35,5 +35,7 @@ public interface MovieService {
 
     List<MovieScore> findByCountry(String country);
 
+    List<MovieScore> findByStatus(Integer status);
+
 
 }

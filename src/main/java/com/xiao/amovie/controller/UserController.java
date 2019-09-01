@@ -2,14 +2,18 @@ package com.xiao.amovie.controller;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.xiao.amovie.entity.News;
 import com.xiao.amovie.entity.User;
 import com.xiao.amovie.enums.Gender;
 import com.xiao.amovie.enums.Role;
+import com.xiao.amovie.enums.Status;
+import com.xiao.amovie.from.MovieScore;
 import com.xiao.amovie.from.ResultForm;
 import com.xiao.amovie.from.UserForm;
 import com.xiao.amovie.repository.NewsRepository;
 import com.xiao.amovie.repository.UserRepository;
+import com.xiao.amovie.service.MovieService;
 import com.xiao.amovie.service.UserService;
 import com.xiao.amovie.utils.EmailRegex;
 import com.xiao.amovie.utils.ResultVOUtil;
@@ -28,7 +32,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -43,12 +49,21 @@ public class UserController {
     @Autowired
     private NewsRepository repository;
 
+    @Autowired
+    private MovieService movieService;
+
     @GetMapping(value = {"/","/index"})
     public String newsIndex(@RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
-                                    @RequestParam(value = "size", required = false, defaultValue = "3") Integer size,
-                                    Model model) {
-        Page<News> newsList = PageHelper.startPage(page, size).doSelectPage(() -> repository.getAll());
+                            @RequestParam(value = "size", required = false, defaultValue = "6") Integer size,
+                            Model model) {
+        PageInfo<News> newsList = PageHelper.startPage(page, 3).doSelectPageInfo(() -> repository.getAll());
+        PageInfo<MovieScore> selectPageInfo = PageHelper.startPage(page, size).doSelectPageInfo(() -> movieService.findMovieScoreSort());
+        PageInfo<MovieScore> movieScoreList = PageHelper.startPage(page,8).doSelectPageInfo(() -> movieService.findByStatus(Status.RELEASED.getCode()));
+        PageInfo<MovieScore> movieScorePoster = PageHelper.startPage(page,3).doSelectPageInfo(() -> movieService.findByStatus(Status.RELEASED.getCode()));
+        model.addAttribute("movieScore",selectPageInfo);
+        model.addAttribute("movieScoreList",movieScoreList);
         model.addAttribute("newsList",newsList);
+        model.addAttribute("movieScorePoster",movieScorePoster);
         return "index";
     }
 
