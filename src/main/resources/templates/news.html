@@ -21,43 +21,44 @@
                             <!--First Slide-->
                             <div class="swiper-slide"
                                  data-text='Mauris gravida ipsum vitae libero eget dignissim ipsum egestas.'>
-                                <img alt='' src="http://placehold.it/1600x600">
+                                <img alt='' src="/images/bg-video.jpg">
                             </div>
 
                             <!--Second Slide-->
-                            <div class="swiper-slide"
+                            <!--<div class="swiper-slide"
                                  data-text='Natalie Zea at Amazon Studios Launch Party for "Alpha House" and "Betas"'>
-                                <img alt='' src="http://placehold.it/1600x600">
+                                <img alt='' src="/images/bg-video.jpg">
                             </div>
 
-                            <!--Third Slide-->
+                            &lt;!&ndash;Third Slide&ndash;&gt;
                             <div class="swiper-slide"
                                  data-text='Aliquam cursus porta porttitor. Donec faucibus risus vitae porta tincidunt.'>
-                                <img alt='' src="http://placehold.it/1600x600">
-                            </div>
+                                <img alt='' src="/images/bg-video.jpg">
+                            </div>-->
                         </div><!-- end swiper wrapper-->
                     </div><!-- end swiper container -->
 
-                    <a class="arrow-left no-hover" href="#"><span class="slider__info"></span></a>
-                    <a class="arrow-right" href="#"><span class="slider__info"></span></a>
+                    <!--<a class="arrow-left no-hover" href="#"><span class="slider__info"></span></a>
+                    <a class="arrow-right" href="#"><span class="slider__info"></span></a>-->
 
                 </div>
 
-                <h1>Donec eu mollis augue, ut egestas leo (h1)</h1>
-                <p class="post__date">29 October 2013 </p>
+                <h1><!--Donec eu mollis augue, ut egestas leo (h1)--> <span th:text="${news.title}"></span></h1>
+                <p class="post__date"><!--29 October 2013--> <span th:text="${#dates.format(news.createTime,'yyyy-MM-dd HH:mm:ss')}"></span> </p>
 
                 <div class="wave-devider"></div>
+                <p><span th:text="${news.content}"></span></p>
 
-                <p>Mauris gravida ipsum vitae libero molestie eget dignissim ipsum egestas. Quisque in eros id velit
+                <!--<p>Mauris gravida ipsum vitae libero molestie eget dignissim ipsum egestas. Quisque in eros id velit
                     molestie placerat a ut arcu. Etiam consequat, turpis ac commodo rhoncus, justo enim consequat
                     tortor, vitae interdum odio tellus at sem. Aliquam lacus quam, lobortis sed lacus eget, commodo
-                    volutpat nunc. <a href="#" class="link--text">Text link sample</a>. Proin accumsan diam vel nulla
+                    volutpat nunc. <a href="#" class="link&#45;&#45;text">Text link sample</a>. Proin accumsan diam vel nulla
                     ultrices congue.</p>
 
                 <p>Phasellus at faucibus nisi. Nullam tincidunt sapien leo, et sodales mauris placerat vulputate. Ut
                     pulvinar, dolor viverra pulvinar scelerisque, nisi tellus elementum libero, porta rutrum dui massa
                     bibendum nisl. Donec viverra mi sit amet massa commodo, ullamcorper sollicitudin quam laoreet. <a
-                            href="#" class="link--text">Text link hover sample</a>. Aliquam cursus porta porttitor.
+                            href="#" class="link&#45;&#45;text">Text link hover sample</a>. Aliquam cursus porta porttitor.
                     Donec faucibus risus vitae porta tincidunt. Sed egestas elementum quam sed fermentum. Cum sociis
                     natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Quisque posuere suscipit
                     tristique. </p>
@@ -67,12 +68,12 @@
                     eros cursus, mattis massa eget, vulputate dolor. Nullam nec leo et odio condimentum iaculis eleifend
                     a nisi. Nullam est velit, porta suscipit arcu quis, varius tristique tortor. Aliquam et libero
                     sapien. Proin in dictum elit, quis ornare tellus. Ut consequat turpis id urna dignissim, non mattis
-                    velit eleifend. Ut lacinia egestas dolor. Aliquam vitae bibendum est. </p>
+                    velit eleifend. Ut lacinia egestas dolor. Aliquam vitae bibendum est. </p>-->
 
                 <div class="col-sm-12 col-md-6">
                     <blockquote class="quote quote--intext">
                         If it were easy, <br> everyone would do it.
-                        <small class="quote__author"><span class="quote__author-name">Loki, Thor: The Dark World</span>
+                        <small class="quote__author"><span class="quote__author-name" th:text="${news.title}"><!--Loki, Thor: The Dark World--></span>
                         </small>
                     </blockquote>
                 </div>
@@ -122,7 +123,7 @@
                     venenatis.</p>
 
                 <div class="post__images post__images--right col-sm-6 pull-right">
-                    <img alt='' src="http://placehold.it/810x550">
+                    <img alt='' src="/images/news1.jpg">
                 </div>
 
                 <p>In lobortis ac neque in eleifend. Maecenas magna justo, malesuada ac aliquet at, egestas et nibh.
@@ -142,7 +143,7 @@
                     Maecenas tincidunt dapibus lacus, id dapibus quam bibendum venenatis.</p>
 
                 <div class="post__images post__images--left col-sm-6 pull-left">
-                    <img alt='' src="http://placehold.it/810x550">
+                    <img alt='' src="/images/news2.jpg">
                 </div>
 
                 <p>Interdum et malesuada fames ac ante ipsum primis in faucibus. Quisque fermentum vel ipsum tincidunt
@@ -219,56 +220,56 @@
                 </div>
             </div>
 
-            <h2 class="page-heading">Similar posts</h2>
+            <!--<h2 class="page-heading">Similar posts</h2>
 
-            <div class="col-sm-4 col--remove">
-                <div class="post post--preview post--preview--full">
+            <div class="col-sm-4 col&#45;&#45;remove">
+                <div class="post post&#45;&#45;preview post&#45;&#45;preview&#45;&#45;full">
                     <div class="post__image">
                         <img alt='' src="http://placehold.it/270x330">
-                        <div class="social social--position social--hide">
+                        <div class="social social&#45;&#45;position social&#45;&#45;hide">
                             <span class="social__name">Share:</span>
-                            <a href='#' class="social__variant social--first fa fa-facebook"></a>
-                            <a href='#' class="social__variant social--second fa fa-twitter"></a>
-                            <a href='#' class="social__variant social--third fa fa-vk"></a>
+                            <a href='#' class="social__variant social&#45;&#45;first fa fa-facebook"></a>
+                            <a href='#' class="social__variant social&#45;&#45;second fa fa-twitter"></a>
+                            <a href='#' class="social__variant social&#45;&#45;third fa fa-vk"></a>
                         </div>
                     </div>
                     <p class="post__date">22 October 2013 </p>
                     <a href="#" class="post__title">"Thor: The Dark World" - World Premiere</a>
-                    <a href="#" class="btn read-more post--btn">read more</a>
+                    <a href="#" class="btn read-more post&#45;&#45;btn">read more</a>
                 </div>
             </div>
-            <div class="col-sm-4 col--remove">
-                <div class="post--preview post--preview--full">
+            <div class="col-sm-4 col&#45;&#45;remove">
+                <div class="post&#45;&#45;preview post&#45;&#45;preview&#45;&#45;full">
                     <div class="post__image">
                         <img alt='' src="http://placehold.it/270x330">
-                        <div class="social social--position social--hide">
+                        <div class="social social&#45;&#45;position social&#45;&#45;hide">
                             <span class="social__name">Share:</span>
-                            <a href='#' class="social__variant social--first fa fa-facebook"></a>
-                            <a href='#' class="social__variant social--second fa fa-twitter"></a>
-                            <a href='#' class="social__variant social--third fa fa-vk"></a>
+                            <a href='#' class="social__variant social&#45;&#45;first fa fa-facebook"></a>
+                            <a href='#' class="social__variant social&#45;&#45;second fa fa-twitter"></a>
+                            <a href='#' class="social__variant social&#45;&#45;third fa fa-vk"></a>
                         </div>
                     </div>
                     <p class="post__date">22 October 2013 </p>
                     <a href="#" class="post__title">30th Annual Night Of Stars Presented By The Fashion ...</a>
-                    <a href="#" class="btn read-more post--btn">read more</a>
+                    <a href="#" class="btn read-more post&#45;&#45;btn">read more</a>
                 </div>
             </div>
-            <div class="col-sm-4 col--remove">
-                <div class="post--preview post--preview--full">
+            <div class="col-sm-4 col&#45;&#45;remove">
+                <div class="post&#45;&#45;preview post&#45;&#45;preview&#45;&#45;full">
                     <div class="post__image">
                         <img alt='' src="http://placehold.it/270x330">
-                        <div class="social social--position social--hide">
+                        <div class="social social&#45;&#45;position social&#45;&#45;hide">
                             <span class="social__name">Share:</span>
-                            <a href='#' class="social__variant social--first fa fa-facebook"></a>
-                            <a href='#' class="social__variant social--second fa fa-twitter"></a>
-                            <a href='#' class="social__variant social--third fa fa-vk"></a>
+                            <a href='#' class="social__variant social&#45;&#45;first fa fa-facebook"></a>
+                            <a href='#' class="social__variant social&#45;&#45;second fa fa-twitter"></a>
+                            <a href='#' class="social__variant social&#45;&#45;third fa fa-vk"></a>
                         </div>
                     </div>
                     <p class="post__date">22 October 2013 </p>
                     <a href="#" class="post__title">Hollywood Film Awards 2013</a>
-                    <a href="#" class="btn read-more post--btn">read more</a>
+                    <a href="#" class="btn read-more post&#45;&#45;btn">read more</a>
                 </div>
-            </div>
+            </div>-->
             <div class="clearfix"></div>
             <h2 class="page-heading">comments (15)</h2>
 

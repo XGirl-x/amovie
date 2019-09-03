@@ -17,9 +17,9 @@
                 <!-- News post article-->
                 <div th:each="news:${newsList.list}">
                 <article class="post post--news">
-                    <!--<a href='news.html' class="post__image-link">
-                        <img alt='' src="http://placehold.it/1600x600">
-                    </a>-->
+                    <a th:href="'/news/'+${news.id}" class="post__image-link">
+                        <img alt='' src="/images/bg-video.jpg" width="1100px" height="500px">
+                    </a>
 
                     <h1><a th:href="'/news/'+${news.id}" class="post__title-link">
                         <span th:text="${news.title}"></span>
@@ -29,12 +29,7 @@
                     <div class="wave-devider"></div>
 
                     <p class="post__text">
-                        <span th:text="${news.content}"></span>
-                        <!--Mauris gravida ipsum vitae libero molestie eget dignissim ipsum egestas.
-                        Quisque in eros id velit molestie placerat a ut arcu. Etiam consequat, turpis ac commodo
-                        rhoncus, justo enim consequat tortor, vitae interdum odio tellus at sem. Aliquam lacus quam,
-                        lobortis sed lacus eget, commodo volutpat nunc. Text link sample. Proin accumsan diam vel nulla
-                        ultrices congue.--></p>
+                        <span th:text="${news.content}"></span></p>
 
                     <div class="devider-huge"></div>
                 </article>

@@ -1,5 +1,7 @@
 package com.xiao.amovie.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.xiao.amovie.from.MovieScore;
 import com.xiao.amovie.repository.MovieRepository;
 import com.xiao.amovie.service.MovieService;
@@ -19,14 +21,18 @@ import java.util.List;
 public class SearchController {
 
     @Autowired
-    private MovieRepository movieRepository;
-
-    @Autowired
     private MovieService movieService;
 
     @GetMapping("/1/{searchContent}")
     public String searchByTitle(@PathVariable("searchContent") String searchContent,
+                                @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+                                @RequestParam(value = "size", required = false, defaultValue = "3") Integer size,
                                 Model model) {
+        /*if (searchContent == null) {
+            PageInfo<MovieScore> movieList = PageHelper.startPage(page, size).doSelectPageInfo(() -> movieService.findMovieScoreSort());
+            model.addAttribute("movieList",movieList);
+            return "movie-list";
+        }*/
         List<MovieScore> movieScoreList = movieService.findByName(searchContent);
         model.addAttribute("movieLists",movieScoreList);
         return "movie-lists";

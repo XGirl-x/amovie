@@ -204,11 +204,11 @@ function init_BookingOne() {
         var choosenMovieId = $(this).attr(('data-movieId'));
         var choosenPrice = $(this).attr(('data-price'));
 
-        console.log(chooseTime);
+        /*console.log(chooseTime);
         console.log(chooseMovie);
         console.log(chooseScene);
         console.log(choosenMovieId);
-        console.log(choosenPrice);
+        console.log(choosenPrice);*/
         //$('.choose-indector--time').find('.choosen-area').text(chooseTime);
 
         //data element init
@@ -226,7 +226,12 @@ function init_BookingOne() {
 
     //下一步触发发送
     $('.booking-pagination__next').click(function () {
-        $('.booking-form').submit();
+        if (scene.val() == '') {
+            alert("请选择场次！");
+        }
+        else {
+            $('.booking-form').submit();
+        }
     });
 
     // choose (change) city and date for film
@@ -289,26 +294,33 @@ function init_BookingTwo() {
 
     //2. Init vars for order data
     // var for booking;
-    var numberTicket = $('.choosen-number'),
-        sumTicket = $('.choosen-cost'),
-        cheapTicket = $('.choosen-number--cheap'),
+    var ticketNum = $('.choosen-number'),
+        totalPrice = $('.choosen-cost'),
+        /*cheapTicket = $('.choosen-number--cheap'),
         middleTicket = $('.choosen-number--middle'),
-        expansiveTicket = $('.choosen-number--expansive'),
-        sits = $('.choosen-sits');
+        expansiveTicket = $('.choosen-number--expansive'),*/
+        sits = $('.choosen-sits'),
+        price = $('.choosen-price'),
+        sceneId = $('.choosen-scene');
 
     //3. Choose sits (and count price for them)
     //users choose sits
 
     //data elements init
     var sum = 0;
-    var cheap = 0;
+    /*var cheap = 0;
     var middle = 0;
-    var expansive = 0;
+    var expansive = 0;*/
 
     $('.sits__place').click(function (e) {
         e.preventDefault();
         var place = $(this).attr('data-place');
-        var ticketPrice = $(this).attr('data-price');
+        var ticketPrice = $('.choosen-price').val();
+        var scene = $('.choosen-scene').val();
+
+        console.log(place);
+        console.log(ticketPrice);
+        console.log(scene);
 
         if (!$(e.target).hasClass('sits-state--your')) {
 
@@ -317,21 +329,8 @@ function init_BookingTwo() {
 
                 $('.checked-place').prepend('<span class="choosen-place ' + place + '">' + place + '</span>');
 
-                switch (ticketPrice) {
-                    case '10':
-                        sum += 10;
-                        cheap += 1;
-                        break;
-                    case '20':
-                        sum += 20;
-                        middle += 1;
-                        break;
-                    case '30':
-                        sum += 30;
-                        expansive += 1;
-                        break;
-                }
-
+                sum +=parseFloat(ticketPrice);
+                console.log(sum);
                 $('.checked-result').text('$' + sum);
             }
         } else {
@@ -339,20 +338,9 @@ function init_BookingTwo() {
 
             $('.' + place + '').remove();
 
-            switch (ticketPrice) {
-                case '10':
-                    sum -= 10;
-                    cheap -= 1;
-                    break;
-                case '20':
-                    sum -= 20;
-                    middle -= 1;
-                    break;
-                case '30':
-                    sum -= 30;
-                    expansive -= 1;
-                    break;
-            }
+            sum -=parseFloat(ticketPrice);
+
+            console.log(sum);
 
             $('.checked-result').text('$' + sum)
         }
@@ -361,11 +349,11 @@ function init_BookingTwo() {
         var number = $('.checked-place').children().length;
 
         //data element set
-        numberTicket.val(number);
-        sumTicket.val(sum);
-        cheapTicket.val(cheap);
-        middleTicket.val(middle);
-        expansiveTicket.val(expansive);
+        ticketNum.val(number);
+        totalPrice.val(sum);
+        price.val(ticketPrice);
+
+        sceneId.val(scene);
 
 
         //data element init
@@ -376,18 +364,35 @@ function init_BookingTwo() {
 
         //data element set
         sits.val(chooseSits.substr(2));
+
     });
 
     //--- Step for data  ---//
     //Get data from pvevius page
     var url = decodeURIComponent(document.URL);
     var prevDate = url.substr(url.indexOf('?') + 1);
+    //下一步触发发送
+    $('.booking-pagination__next').click(function (e) {
+        e.preventDefault();
+        if (ticketNum.val() == 0) {
+            alert("请选择座位！");
+        }
+        else {
+            var bookData = $(this).serialize();
+            var fullData = prevDate + '&' + bookData;
+            var action,
+                control = $('.order__control-btn.active').text();
+            $('.booking-form').submit();
+        }
+        $.get(action, fullData, function (data) {
+        });
+    });
+    $('.top-scroll').parent().find('.top-scroll').remove();
 
     //Serialize, add new data and send to next page
-    $('.booking-form').submit(function (e) {
+    /*$('.booking-form').submit(function (e) {
         e.preventDefault();
         var bookData = $(this).serialize();
-
         var fullData = prevDate + '&' + bookData;
         var action,
             control = $('.order__control-btn.active').text();
@@ -402,11 +407,11 @@ function init_BookingTwo() {
         });
     });
 
-    $('.top-scroll').parent().find('.top-scroll').remove();
+    $('.top-scroll').parent().find('.top-scroll').remove();*/
 
     //4. Choosing sits mobile
     //init select box
-    $('.sits__sort').selectbox({
+    /*$('.sits__sort').selectbox({
         onChange: function (val, inst) {
 
             $(inst.input[0]).children().each(function (item) {
@@ -440,7 +445,7 @@ function init_BookingTwo() {
     });
 
     //choose sits
-    $('.toogle-sits').click(ChoosePlace);
+    $('.toogle-sits').click(ChoosePlace);*/
 
 
     function ChoosePlace(e) {
@@ -771,10 +776,12 @@ function init_MovieList() {
 
         var searchContent = $('.search__field').val();
         var selected = $('#search-sort').val();
-        var data = {
-            searchContent: searchContent
-        };
-        window.location.href = '/search/' + selected + '/' +searchContent;
+        if (searchContent ==null || searchContent =='') {
+            alert("没有输入搜索内容哦！");
+        }
+        else {
+            window.location.href = '/search/' + selected + '/' +searchContent;
+        }
     });
 
     //3. Rating scrore init

@@ -102,7 +102,7 @@ $(function () {
         var formInput = self.serialize();
         $.post('/login', formInput, function (data) {
             if (data.msg == "成功") {
-                alert(data.msg);
+                alert("登录成功");
                 self.children().fadeOut(300, function () {
                     $(this).remove()
                 });
@@ -182,18 +182,7 @@ $(function () {
             error:function (data) {
                 alert(data.message);
             }
-        }
-        /*var formInput = self.serialize();
-        $.post('register', formInput, function (data) {
-            if (data.msg == "成功") {
-                alert(data.msg);
-                setTimeout(function () {
-                    window.location.href = "/login.html";
-                }, 1000)
-            } else {
-                alert(data.msg)
-            }
-        }*/);
+        });
     }); // end submit
 
 

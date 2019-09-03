@@ -3,6 +3,7 @@ package com.xiao.amovie.repository;
 import com.xiao.amovie.entity.Order;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
@@ -27,4 +28,7 @@ public interface OrderRepository {
 
     @Select("select * from `order`")
     List<Order> getAll();
+
+    @Select("select * from `order` WHERE `user_id`=#{userId}")
+    List<Order> findByUserId(Integer userId);
 }

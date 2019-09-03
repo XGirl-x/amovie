@@ -13,8 +13,8 @@
         <section class="container">
             <div class="order-container">
                 <div class="order">
-                    <img class="order__images" alt='' src="images/tickets.png">
-                    <p class="order__title">预订<br><span class="order__descript">祝您观影愉快！</span></p>
+                    <img class="order__images" alt='' th:src="${movie.poster}" style="width: 190px; height: 281px">
+                    <p class="order__title">预订&nbsp;<span th:text="${movie.name}" style="color: red"></span><br><span class="order__descript">祝您观影愉快！</span></p>
                 </div>
             </div>
             <div class="order-step-area">
@@ -26,9 +26,9 @@
                 <div class="choose-sits__info choose-sits__info--first">
                     <ul>
                         <li class="sits-price marker--none"><strong>价格</strong></li>
-                        <li class="sits-price sits-price--cheap">￥10</li>
-                        <li class="sits-price sits-price--middle">￥20</li>
-                        <li class="sits-price sits-price--expensive">￥30</li>
+                        <li class="sits-price sits-price--cheap">￥<span th:text="${scene.price}"></span></li>
+                        <li class="sits-price sits-price--middle">￥<span th:text="${scene.price}"></span></li>
+                        <li class="sits-price sits-price--expensive">￥<span th:text="${scene.price}"></span></li>
                     </ul>
                 </div>
 
@@ -43,6 +43,7 @@
                     <div class="sits-area hidden-xs">
                         <div class="sits-anchor">屏幕</div>
 
+                        <!--sits-state--not   这个class表示已预订的-->
                         <div class="sits">
                             <aside class="sits__line">
                                 <span class="sits__indecator">A</span>
@@ -126,10 +127,8 @@
                                 <span class="sits__place sits-price--cheap" data-place='D4' data-price='10'>D4</span>
                                 <span class="sits__place sits-price--cheap" data-place='D5' data-price='10'>D5</span>
                                 <span class="sits__place sits-price--cheap" data-place='D6' data-price='10'>D6</span>
-                                <span class="sits__place sits-price--cheap sits-state--not" data-place='D7'
-                                      data-price='10'>D7</span>
-                                <span class="sits__place sits-price--cheap sits-state--not" data-place='D8'
-                                      data-price='10'>D8</span>
+                                <span class="sits__place sits-price--cheap" data-place='D7' data-price='10'>D7</span>
+                                <span class="sits__place sits-price--cheap" data-place='D8' data-price='10'>D8</span>
                                 <span class="sits__place sits-price--cheap" data-place='D9' data-price='10'>D9</span>
                                 <span class="sits__place sits-price--cheap" data-place='D10' data-price='10'>D10</span>
                                 <span class="sits__place sits-price--cheap" data-place='D11' data-price='10'>D11</span>
@@ -320,9 +319,9 @@
                 </div>
 
                 <!-- 移动端视图 -->
-                <div class="col-sm-12 visible-xs">
-                    <div class="sits-area--mobile">
-                        <div class="sits-area--mobile-wrap">
+                <!--<div class="col-sm-12 visible-xs">
+                    <div class="sits-area&#45;&#45;mobile">
+                        <div class="sits-area&#45;&#45;mobile-wrap">
                             <div class="sits-select">
                                 <select name="sorting_item" class="sits__sort sit-row" tabindex="0">
                                     <option value="1" selected='selected'>A</option>
@@ -359,7 +358,7 @@
                                     <option value="18">18</option>
                                 </select>
 
-                                <a href="#" class="btn btn-md btn--warning toogle-sits">选择座位</a>
+                                <a href="#" class="btn btn-md btn&#45;&#45;warning toogle-sits">选择座位</a>
                             </div>
                         </div>
 
@@ -376,29 +375,32 @@
 
                         <img alt="" src="images/components/sits_mobile.png">
                     </div>
-                </div>
+                </div>-->
             </div>
         </section>
     </div>
 
 
     <div class="clearfix"></div>
-    <form id='film-and-time' class="booking-form" method='get' action='book3-buy.html'>
+    <form id='film-and-time' class="booking-form" method='get' action='/order/book3'>
 
-        <input type='text' name='choosen-number' class="choosen-number">
-        <input type='text' name='choosen-number--cheap' class="choosen-number--cheap">
-        <input type='text' name='choosen-number--middle' class="choosen-number--middle">
-        <input type='text' name='choosen-number--expansive' class="choosen-number--expansive">
-        <input type='text' name='choosen-cost' class="choosen-cost">
-        <input type='text' name='choosen-sits' class="choosen-sits">
+        <input type='text' name='ticketNum' class="choosen-number">
+        <!--<input type='text' name='choosen-number&#45;&#45;cheap' class="choosen-number&#45;&#45;cheap">
+        <input type='text' name='choosen-number&#45;&#45;middle' class="choosen-number&#45;&#45;middle">
+        <input type='text' name='choosen-number&#45;&#45;expansive' class="choosen-number&#45;&#45;expansive">-->
+        <input type='text' name='totalPrice' class="choosen-cost">     <!--总价-->
+        <input type='text' name='bookedSeat' class="choosen-sits">
+        <input type="text" name="price" class="choosen-price" th:value="${scene.price}">
+        <input type="text" name="sceneId" class="choosen-scene" th:value="${scene.id}">
 
 
         <div class="booking-pagination booking-pagination--margin">
-            <a href="book1.html" class="booking-pagination__prev">
+            <a href="javascript:history.go(-1);"
+               class="booking-pagination__prev">
                 <span class="arrow__text arrow--prev">上一步</span>
                 <span class="arrow__info">选择您要观看的场次</span>
             </a>
-            <a href="book3-buy.html" class="booking-pagination__next">
+            <a href="#" class="booking-pagination__next">
                 <span class="arrow__text arrow--next">下一步</span>
                 <span class="arrow__info">结算</span>
             </a>
@@ -415,10 +417,16 @@
 
 <!-- JavaScript-->
 <div th:replace="~{/fragment/common-fragment :: script}"></div>
-
+<input type="text" th:value="${bookedSeat}" id="bookedSeat" hidden>
 <script type="text/javascript">
     $(document).ready(function () {
         init_BookingTwo();
+        var sceneBookedSeat = JSON.parse($('#bookedSeat').val());
+        $('span').filter(function () {
+            var seats = $(this).attr('data-place');
+            var res = $.inArray(seats, sceneBookedSeat)!=-1;
+            return res;
+        }).addClass('sits-state--not');
     });
 </script>
 
