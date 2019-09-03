@@ -15,7 +15,11 @@ public class LoginStatusInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        return false;
+        if (request.getSession().getAttribute("user") == null) {
+            request.getRequestDispatcher("/login").forward(request,response);
+            return false;
+        }
+        return true;
     }
 
     @Override

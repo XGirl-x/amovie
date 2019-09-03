@@ -86,6 +86,12 @@ public class UserController {
         }
     }
 
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+
     @PostMapping("/login")
     @ResponseBody
     public ResultForm login(@RequestParam("email") String email, @RequestParam("password") String password, @RequestParam(value = "loginStatus", defaultValue = "off") String loginStatus, HttpSession session, HttpServletResponse response) {
