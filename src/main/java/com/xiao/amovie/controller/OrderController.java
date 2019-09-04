@@ -62,7 +62,9 @@ public class OrderController {
             MovieScore movieScore = movieService.findByMovieId(scene.getMovieId());
             Scene scene1 = sceneRepository.findById(scene.getId());
             String bookedSeat = scene1.getBookedSeat();
-            bookedSeat = bookedSeat.replaceAll(" ","");
+            if (bookedSeat != null) {
+                bookedSeat = bookedSeat.replaceAll(" ","");
+            }
             String[] split = {};
             if (!StringUtils.isEmpty(bookedSeat)) {
                 split = Arrays.stream(bookedSeat.split(",")).map(s -> String.format("\"%s\"",s)).toArray(String[]::new);
