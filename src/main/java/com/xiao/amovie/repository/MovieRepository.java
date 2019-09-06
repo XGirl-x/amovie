@@ -89,5 +89,10 @@ public interface MovieRepository {
      */
     MovieScore findByMovieId(Integer id);
 
+    /**
+     * 查询所有上映电影
+     * @param status
+     * @return
+     */
     List<MovieScore> findByStatus(Integer status);
 }

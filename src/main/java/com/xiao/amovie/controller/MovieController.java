@@ -6,6 +6,7 @@ import com.github.pagehelper.PageInfo;
 import com.xiao.amovie.entity.Movie;
 import com.xiao.amovie.entity.Review;
 import com.xiao.amovie.entity.Scene;
+import com.xiao.amovie.enums.Status;
 import com.xiao.amovie.exception.CommonException;
 import com.xiao.amovie.exception.NotFoundException;
 import com.xiao.amovie.from.MovieForm;
@@ -128,16 +129,12 @@ public class MovieController {
         throw new CommonException("删除失败");
     }
 
-    /*@GetMapping("/{id}/scenes")
-    public ResponseEntity getMovieScenes(@PathVariable("id") Integer id) {
-        Movie movie = repository.findById(id);
-        if (movie == null) {
-            throw new NotFoundException("资源未找到");
-        }
-        List<Scene> sceneList = sceneRepository.findByMovieName(movie.getName());
-        if (sceneList.size() == 0) {
-            return new ResponseEntity(null, HttpStatus.OK);
-        }
-        return new ResponseEntity(sceneList, HttpStatus.OK);
-    }*/
+    @GetMapping("/released")
+    public String getAllReleased(@RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+                                 @RequestParam(value = "size", required = false, defaultValue = "3") Integer size,
+                                 Model model) {
+        PageInfo<MovieScore> movieList = PageHelper.startPage(page, size).doSelectPageInfo(() -> movieService.findByStatus(Status.RELEASED.getCode()));
+        model.addAttribute("movieList",movieList);
+        return "movie-list";
+    }
 }
