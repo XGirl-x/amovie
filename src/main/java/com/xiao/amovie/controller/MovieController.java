@@ -1,10 +1,8 @@
 package com.xiao.amovie.controller;
 
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.xiao.amovie.entity.Movie;
-import com.xiao.amovie.entity.Review;
 import com.xiao.amovie.entity.Scene;
 import com.xiao.amovie.enums.Status;
 import com.xiao.amovie.exception.CommonException;
@@ -23,7 +21,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 

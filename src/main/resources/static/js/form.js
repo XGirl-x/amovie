@@ -175,7 +175,7 @@ $(function () {
                 self.children().fadeOut(300,function () {
                     $(this).remove()
                 });
-                window.location.href = "/login.html";
+                window.location.href = "/login";
                 if (error != 0) return;
                 self.find('[type = submit]').attr('disabled','disabled');
             },
